@@ -15,9 +15,10 @@ In this project, the Library API is taken as example and the Testing Framework i
 *Data Provider* used to add the books into library with different details
 
 Logs were found under *target/logs*
-It is Maven Project- SUrefire plugin is set up to launch the *testng.xml* file
+It is Maven Project- Surefire plugin is set up to launch the *testng.xml* file
 
-
+To Run the tests use **mvn clean verify** from the command prompt
+or configure the IDE to with the project to run the test using maven options of clean and verify 
 
 
 
