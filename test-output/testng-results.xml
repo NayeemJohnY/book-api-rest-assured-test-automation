@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="2" total="9" passed="7">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Suite" duration-ms="8009" started-at="2019-12-02T17:39:28 IST" finished-at="2019-12-02T17:39:36 IST">
+    <groups>
+    </groups>
+    <test name="Test" duration-ms="8009" started-at="2019-12-02T17:39:28 IST" finished-at="2019-12-02T17:39:36 IST">
+      <class name="tests.TC_01_AddNewBookinLibrary">
+        <test-method status="PASS" signature="setBaseURI()[pri:0, instance:tests.TC_01_AddNewBookinLibrary@fa4c865]" name="setBaseURI" is-config="true" duration-ms="774" started-at="2019-12-02T17:39:27 IST" finished-at="2019-12-02T17:39:28 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setBaseURI -->
+        <test-method status="PASS" signature="addBookinLibrary(beans.Book)[pri:1, instance:tests.TC_01_AddNewBookinLibrary@fa4c865]" name="addBookinLibrary" duration-ms="3924" started-at="2019-12-02T17:39:28 IST" data-provider="TestData_Library" finished-at="2019-12-02T17:39:32 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[beans.Book@60df60da]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addBookinLibrary -->
+        <test-method status="PASS" signature="addBookinLibrary(beans.Book)[pri:1, instance:tests.TC_01_AddNewBookinLibrary@fa4c865]" name="addBookinLibrary" duration-ms="610" started-at="2019-12-02T17:39:32 IST" data-provider="TestData_Library" finished-at="2019-12-02T17:39:33 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[beans.Book@15cea7b0]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addBookinLibrary -->
+        <test-method status="PASS" signature="addBookinLibrary(beans.Book)[pri:1, instance:tests.TC_01_AddNewBookinLibrary@fa4c865]" name="addBookinLibrary" duration-ms="661" started-at="2019-12-02T17:39:33 IST" data-provider="TestData_Library" finished-at="2019-12-02T17:39:33 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[beans.Book@2e140e59]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addBookinLibrary -->
+        <test-method status="PASS" signature="addBookinLibrary(beans.Book)[pri:1, instance:tests.TC_01_AddNewBookinLibrary@fa4c865]" name="addBookinLibrary" duration-ms="608" started-at="2019-12-02T17:39:33 IST" data-provider="TestData_Library" finished-at="2019-12-02T17:39:34 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[beans.Book@511505e7]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addBookinLibrary -->
+      </class> <!-- tests.TC_01_AddNewBookinLibrary -->
+      <class name="tests.TC03_DeleteBookfromLibrary">
+        <test-method status="PASS" signature="deleteBookfromLibrary()[pri:4, instance:tests.TC03_DeleteBookfromLibrary@544fa968]" name="deleteBookfromLibrary" duration-ms="621" started-at="2019-12-02T17:39:35 IST" finished-at="2019-12-02T17:39:36 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deleteBookfromLibrary -->
+      </class> <!-- tests.TC03_DeleteBookfromLibrary -->
+      <class name="tests.TC_02_GetBookfromLibrary">
+        <test-method status="PASS" signature="getBookbyAuthorName()[pri:2, instance:tests.TC_02_GetBookfromLibrary@3bd82cf5]" name="getBookbyAuthorName" duration-ms="686" started-at="2019-12-02T17:39:34 IST" finished-at="2019-12-02T17:39:35 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getBookbyAuthorName -->
+        <test-method status="PASS" signature="getBookbyID()[pri:3, instance:tests.TC_02_GetBookfromLibrary@3bd82cf5]" name="getBookbyID" duration-ms="642" started-at="2019-12-02T17:39:35 IST" finished-at="2019-12-02T17:39:35 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getBookbyID -->
+      </class> <!-- tests.TC_02_GetBookfromLibrary -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
+</testng-results>
