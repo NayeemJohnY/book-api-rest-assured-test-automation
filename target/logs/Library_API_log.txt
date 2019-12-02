@@ -1,54 +1,27 @@
-17:37:28.087  [APITestBase.setBaseURI] [INFO ] Base URI is set to: http://216.10.245.166/Library
-17:37:28.483  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
-{"book_name":"GST","isbn":"kBYNq","aisle":100,"author":"John"}
-17:37:28.485  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
-{"name":"GST","isbn":"kBYNq","aisle":100,"author":"John"}
-17:37:32.507  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: kBYNq100
-17:37:32.599  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
-{"book_name":"Skills","isbn":"EGhgT","aisle":50,"author":"Nayeem"}
-17:37:32.603  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
-{"name":"Skills","isbn":"EGhgT","aisle":50,"author":"Nayeem"}
-17:37:33.193  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: EGhgT50
-17:37:33.200  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
-{"book_name":"Way","isbn":"dJisE","aisle":150,"author":"Vinoth"}
-17:37:33.201  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
-{"name":"Way","isbn":"dJisE","aisle":150,"author":"Vinoth"}
-17:37:33.813  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: dJisE150
-17:37:33.823  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
-{"book_name":"The Hundered","isbn":"LGuIx","aisle":500,"author":"Willaim"}
-17:37:33.823  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
-{"name":"The Hundered","isbn":"LGuIx","aisle":500,"author":"Willaim"}
-17:37:34.407  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: LGuIx500
-17:37:35.086  [TC_02_GetBookfromLibrary.getBookbyAuthorName] [INFO ] Books of the Author:Nayeemjohn
+17:51:04.331  [APITestBase.setBaseURI] [INFO ] Base URI is set to: http://216.10.245.166/Library
+17:51:04.719  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
+{"book_name":"GST","isbn":"m5peF","aisle":100,"author":"John"}
+17:51:04.721  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
+{"name":"GST","isbn":"m5peF","aisle":100,"author":"John"}
+17:51:07.906  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: m5peF100
+17:51:07.911  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
+{"book_name":"Skills","isbn":"ucx2K","aisle":50,"author":"Nayeem"}
+17:51:07.917  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
+{"name":"Skills","isbn":"ucx2K","aisle":50,"author":"Nayeem"}
+17:51:08.516  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: ucx2K50
+17:51:08.518  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
+{"book_name":"Way","isbn":"46uoB","aisle":150,"author":"Vinoth"}
+17:51:08.519  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
+{"name":"Way","isbn":"46uoB","aisle":150,"author":"Vinoth"}
+17:51:09.122  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: 46uoB150
+17:51:09.123  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
+{"book_name":"The Hundered","isbn":"TSmit","aisle":500,"author":"Willaim"}
+17:51:09.127  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
+{"name":"The Hundered","isbn":"TSmit","aisle":500,"author":"Willaim"}
+17:51:09.728  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: TSmit500
+17:51:10.397  [TC_02_GetBookfromLibrary.getBookbyAuthorName] [INFO ] Books of the Author:Nayeemjohn
 [Learn Selenium, Learn API, Learn RestAPI, Learn RestAPI, Learn RestAPI, Learn RestAPI, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code]
-17:37:35.769  [JavaJsonUtils.deSrializeJsontoJavaBook] [INFO ] The Deserialization is Successfull
-17:37:35.769  [TC_02_GetBookfromLibrary.getBookbyID] [INFO ] Below are the details of the book of ID:LGuIx500
-17:37:35.770  [TC_02_GetBookfromLibrary.getBookbyID] [INFO ] ISBN of Book : LGuIx Name of Book: The Hundered Author of Book Willaim Pages of Book 500
-17:37:36.409  [TC03_DeleteBookfromLibrary.deleteBookfromLibrary] [INFO ] Book with id: LGuIx500 is Deleted Successfully
-17:39:28.438  [APITestBase.setBaseURI] [INFO ] Base URI is set to: http://216.10.245.166/Library
-17:39:28.848  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
-{"book_name":"GST","isbn":"ESKyT","aisle":100,"author":"John"}
-17:39:28.849  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
-{"name":"GST","isbn":"ESKyT","aisle":100,"author":"John"}
-17:39:32.415  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: ESKyT100
-17:39:32.504  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
-{"book_name":"Skills","isbn":"ZxyGK","aisle":50,"author":"Nayeem"}
-17:39:32.504  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
-{"name":"Skills","isbn":"ZxyGK","aisle":50,"author":"Nayeem"}
-17:39:33.109  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: ZxyGK50
-17:39:33.112  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
-{"book_name":"Way","isbn":"OWGCZ","aisle":150,"author":"Vinoth"}
-17:39:33.113  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
-{"name":"Way","isbn":"OWGCZ","aisle":150,"author":"Vinoth"}
-17:39:33.772  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: OWGCZ150
-17:39:33.779  [JavaJsonUtils.serializeJavatoJson] [INFO ] The Serialized JSON String is:
-{"book_name":"The Hundered","isbn":"gyAAZ","aisle":500,"author":"Willaim"}
-17:39:33.780  [TC_01_AddNewBookinLibrary.addBookinLibrary] [DEBUG] Data for Executinng Test:
-{"name":"The Hundered","isbn":"gyAAZ","aisle":500,"author":"Willaim"}
-17:39:34.382  [TC_01_AddNewBookinLibrary.addBookinLibrary] [INFO ] Book Successfully added in Library with id: gyAAZ500
-17:39:35.074  [TC_02_GetBookfromLibrary.getBookbyAuthorName] [INFO ] Books of the Author:Nayeemjohn
-[Learn Selenium, Learn API, Learn RestAPI, Learn RestAPI, Learn RestAPI, Learn RestAPI, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code, Learn Code]
-17:39:35.762  [JavaJsonUtils.deSrializeJsontoJavaBook] [INFO ] The Deserialization is Successfull
-17:39:35.762  [TC_02_GetBookfromLibrary.getBookbyID] [INFO ] Below are the details of the book of ID:gyAAZ500
-17:39:35.762  [TC_02_GetBookfromLibrary.getBookbyID] [INFO ] ISBN of Book : gyAAZ Name of Book: The Hundered Author of Book Willaim Pages of Book 500
-17:39:36.410  [TC03_DeleteBookfromLibrary.deleteBookfromLibrary] [INFO ] Book with id: gyAAZ500 is Deleted Successfully
+17:51:11.021  [JavaJsonUtils.deSrializeJsontoJavaBook] [INFO ] The Deserialization is Successfull
+17:51:11.021  [TC_02_GetBookfromLibrary.getBookbyID] [INFO ] Below are the details of the book of ID:TSmit500
+17:51:11.022  [TC_02_GetBookfromLibrary.getBookbyID] [INFO ] ISBN of Book : TSmit Name of Book: The Hundered Author of Book Willaim Pages of Book 500
+17:51:11.723  [TC03_DeleteBookfromLibrary.deleteBookfromLibrary] [INFO ] Book with id: TSmit500 is Deleted Successfully
