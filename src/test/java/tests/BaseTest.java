@@ -2,6 +2,7 @@ package tests;
 
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeSuite;
+import utils.RestAssuredLogFilter;
 
 public class BaseTest {
   private static final String BASE_URI = "http://localhost:3000";
@@ -12,5 +13,6 @@ public class BaseTest {
   public void setUpSuite() {
     RestAssured.baseURI = BASE_URI;
     RestAssured.basePath = BASE_PATH;
+    RestAssured.filters(new RestAssuredLogFilter());
   }
 }
