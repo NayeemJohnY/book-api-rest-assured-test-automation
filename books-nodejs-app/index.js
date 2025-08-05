@@ -68,7 +68,7 @@ app.use((req, res, next) => {
 
 const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 minute
-    max: 20,
+    max: 200,
     message: { error: 'Too many requests. Slow down.' }
 });
 
@@ -87,6 +87,7 @@ let books = [
 // 📚 Routes
 // --------------------------
 
+
 // GET all books with pagination
 app.get('/api/books', (req, res) => {
     const page = parseInt(req.query.page || '1');
@@ -94,6 +95,33 @@ app.get('/api/books', (req, res) => {
     const start = (page - 1) * limit;
     const paginated = books.slice(start, start + limit);
     res.status(200).json(paginated);
+});
+
+// GET books by search
+app.get('/api/books/search', (req, res) => {
+    const { title, author } = req.query;
+
+    if (!title && !author) {
+        return res.status(400).json({ error: 'Please provide at least a title or author for search' });
+    }
+
+    const filteredBooks = books.filter(book => {
+        const matchesTitle = title
+            ? book.title.toLowerCase().includes(title.toLowerCase())
+            : true;
+
+        const matchesAuthor = author
+            ? book.author.toLowerCase().includes(author.toLowerCase())
+            : true;
+
+        return matchesTitle && matchesAuthor;
+    });
+
+    if (filteredBooks.length == 0) {
+        return res.status(404).json({ error: "Books not found for search" })
+    }
+
+    res.status(200).json(filteredBooks);
 });
 
 // GET book by ID
@@ -134,7 +162,7 @@ app.post('/api/books', requireAuth, (req, res) => {
 
 
 // PUT update book (ID must not change)
-app.put('/api/books/:id', (req, requireAuth, res) => {
+app.put('/api/books/:id', requireAuth, (req, res) => {
     const paramId = parseInt(req.params.id);
     const { id: bodyId, title, author } = req.body;
 

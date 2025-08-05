@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite">
-  <test thread-count="5" name="Test">
+<suite name="Library-Book-API-Test-Automation">
+  <test name="CreateBookTest">
     <classes>
-      <class name="tests.TC_01_AddNewBookinLibrary"/>
-      <class name="tests.TC_02_GetBookfromLibrary"/>
-        <class name="tests.TC03_DeleteBookfromLibrary"/>
+      <class name="tests.TS01_CreateBook" />
     </classes>
-  </test> <!-- Test -->
-</suite> <!-- Suite -->
+  </test>
+  <test name="GetBookTest">
+    <classes>
+      <class name="tests.TS02_GetBook" />
+    </classes>
+  </test>
+  <test name="UpdateBookTest">
+    <classes>
+      <class name="tests.TS03_UpdateBook" />
+    </classes>
+  </test>
+  <test name="DeleteBookTest">
+    <classes>
+      <class name="tests.TS04_DeleteBook" />
+    </classes>
+  </test>
+</suite>
