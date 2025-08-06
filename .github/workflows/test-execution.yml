@@ -45,7 +45,13 @@ jobs:
           sleep 20
 
       - name: Execute Test
-        run: mvn clean test ${{ github.event.inputs.parallel && '-Dparallel=true' }}
+        run: |
+          CMD=
+          if [ "${{ github.event.inputs.parallel }}" = "true" ]; then
+            mvn clean test -Dparallel=true
+          else
+            mvn clean test
+          fi
 
       - name: Stop Book NodeJS App
         if: always()
