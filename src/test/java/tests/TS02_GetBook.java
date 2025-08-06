@@ -18,13 +18,15 @@ public class TS02_GetBook extends BaseTest {
       books.add(new Book("Get API Test Book Title " + i, "Get API Test Book Author " + i));
     }
     for (Book book : books) {
-      RestAssured.given()
-          .auth()
-          .oauth2(USER_AUTH_TOKEN)
-          .contentType(ContentType.JSON)
-          .body(book)
-          .when()
-          .post()
+      retryRequest(
+              () ->
+                  RestAssured.given()
+                      .auth()
+                      .oauth2(USER_AUTH_TOKEN)
+                      .contentType(ContentType.JSON)
+                      .body(book)
+                      .when()
+                      .post())
           .then()
           .statusCode(201)
           .body("id", Matchers.notNullValue())
