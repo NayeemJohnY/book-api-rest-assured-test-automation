@@ -8,10 +8,12 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pojos.Book;
 
+/** Test cases for updating books via the API. */
 public class TS03_UpdateBook extends BaseTest {
 
   private int bookId;
 
+  /** Creates a book before running update book tests. */
   @BeforeTest
   public void createBookBeforeUpdateBookTest() {
     Book book = new Book("PUT API Test Book Title ", "PUT API Test Book Author ");
@@ -34,6 +36,7 @@ public class TS03_UpdateBook extends BaseTest {
     bookId = responseBook.getId();
   }
 
+  /** Should update the author of a book. */
   @Test
   public void shouldUpdateBookAuthor() {
     RestAssured.given()
@@ -50,6 +53,7 @@ public class TS03_UpdateBook extends BaseTest {
         .body("author", Matchers.equalTo("Test PUT API Book Author Name"));
   }
 
+  /** Should update the title of a book. */
   @Test
   public void shouldUpdateBookTitle() {
     RestAssured.given()
@@ -66,6 +70,7 @@ public class TS03_UpdateBook extends BaseTest {
         .body("title", Matchers.equalTo("Test PUT API Book Title"));
   }
 
+  /** Should return 401 when no auth is provided on update book. */
   @Test
   public void shouldReturn401WhenNoAuthIsProvidedOnUpdateBook() {
     RestAssured.given()
@@ -78,6 +83,7 @@ public class TS03_UpdateBook extends BaseTest {
         .body("error", Matchers.equalTo("Unauthorized. No token provided."));
   }
 
+  /** Should return 404 when book with ID does not exist. */
   @Test
   public void shouldReturn404WhenBookWithIdIsNotExists() {
     RestAssured.given()
@@ -92,6 +98,7 @@ public class TS03_UpdateBook extends BaseTest {
         .body("error", Matchers.equalTo("Book not found"));
   }
 
+  /** Should return 400 when a different book ID is given in the body. */
   @Test
   public void shouldReturn400WhenDifferentBookIdIsGivenInBody() {
     RestAssured.given()
@@ -107,6 +114,7 @@ public class TS03_UpdateBook extends BaseTest {
         .body("error", Matchers.equalTo("Updating book ID is not allowed."));
   }
 
+  /** Should update the book when the same book ID is given in the body. */
   @Test
   public void shouldUpdateBookWhenSameBookIdIsGivenInBody() {
     Book book = new Book(bookId, "Test PUT API Book Title 2", "Test PUT API Book Author Name 2");

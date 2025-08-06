@@ -10,10 +10,19 @@ import org.apache.logging.log4j.Logger;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 
+/** A RestAssured filter for logging HTTP requests and responses during tests. */
 public class RestAssuredLogFilter implements Filter {
 
   private static final Logger logger = LogManager.getLogger(RestAssuredLogFilter.class);
 
+  /**
+   * Filters and logs HTTP requests and responses for RestAssured.
+   *
+   * @param requestSpec the request specification
+   * @param responseSpec the response specification
+   * @param filterContext the filter context
+   * @return the HTTP response
+   */
   @Override
   public Response filter(
       FilterableRequestSpecification requestSpec,

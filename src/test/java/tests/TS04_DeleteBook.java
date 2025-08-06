@@ -8,10 +8,12 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pojos.Book;
 
+/** Test cases for deleting books via the API. */
 public class TS04_DeleteBook extends BaseTest {
 
   private int bookId;
 
+  /** Creates a book before running delete book tests. */
   @BeforeTest
   public void createBookBeforeDeleteBookTest() {
     Book book = new Book("Delete API Test Book Title ", "Delete API Test Book Author ");
@@ -34,6 +36,7 @@ public class TS04_DeleteBook extends BaseTest {
     bookId = responseBook.getId();
   }
 
+  /** Should return 401 when no auth token is provided on delete. */
   @Test
   public void shouldReturn401WhenNoAuthTokenProvidedOnDelete() {
 
@@ -46,6 +49,7 @@ public class TS04_DeleteBook extends BaseTest {
         .body("error", Matchers.equalTo("Unauthorized. No token provided."));
   }
 
+  /** Should return 403 when user auth token is provided on delete. */
   @Test
   public void shouldReturn403WhenUserAuthTokenIsProvidedOnDelete() {
     RestAssured.given()
@@ -59,6 +63,7 @@ public class TS04_DeleteBook extends BaseTest {
         .body("error", Matchers.equalTo("Forbidden. Admin access required."));
   }
 
+  /** Should delete the book when book ID is valid. */
   @Test
   public void shouldDeleteBookWhenBookIdIsValid() {
     RestAssured.given()
@@ -71,6 +76,7 @@ public class TS04_DeleteBook extends BaseTest {
         .statusCode(204);
   }
 
+  /** Should return 404 when the book is already deleted or does not exist. */
   @Test(dependsOnMethods = "shouldDeleteBookWhenBookIdIsValid")
   public void shouldReturn404WhenBookIsAlreadyDeletedOrNotExists() {
     RestAssured.given()

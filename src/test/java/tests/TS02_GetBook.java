@@ -9,8 +9,10 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pojos.Book;
 
+/** Test cases for retrieving books via the API. */
 public class TS02_GetBook extends BaseTest {
 
+  /** Creates books before running get book tests. */
   @BeforeTest
   public void createBooksBeforeGetBookTest() {
     List<Book> books = new ArrayList<>();
@@ -35,6 +37,7 @@ public class TS02_GetBook extends BaseTest {
     }
   }
 
+  /** Should return books for default page 1. */
   @Test
   public void shouldReturnBooksForDefaultPage1() {
     RestAssured.given()
@@ -45,6 +48,7 @@ public class TS02_GetBook extends BaseTest {
         .body("book.size()", Matchers.greaterThanOrEqualTo(10));
   }
 
+  /** Should return books by page number. */
   @Test
   public void shouldReturnBooksByPageNumber() {
     RestAssured.given()
@@ -56,6 +60,7 @@ public class TS02_GetBook extends BaseTest {
         .body("id", Matchers.hasItem(Matchers.greaterThan(10)));
   }
 
+  /** Should return books by limit. */
   @Test
   public void shouldReturnBooksByLimit() {
     RestAssured.given()
@@ -67,6 +72,7 @@ public class TS02_GetBook extends BaseTest {
         .body("$.size()", Matchers.equalTo(5));
   }
 
+  /** Should return books by limit and page. */
   @Test
   public void shouldReturnBooksByLimitAndPage() {
     RestAssured.given()
@@ -79,6 +85,7 @@ public class TS02_GetBook extends BaseTest {
         .body("id", Matchers.hasItem(Matchers.greaterThan(10)));
   }
 
+  /** Should return no books if page number is not in range. */
   @Test
   public void shouldReturnNoBooksIfPageNumberIsNotInRange() {
     RestAssured.given()
@@ -90,6 +97,7 @@ public class TS02_GetBook extends BaseTest {
         .body("$", Matchers.empty());
   }
 
+  /** Should return no books on negative page. */
   @Test
   public void shouldReturnNoBooksOnNegativePage() {
     RestAssured.given()
@@ -101,6 +109,7 @@ public class TS02_GetBook extends BaseTest {
         .body("$", Matchers.empty());
   }
 
+  /** Should return books excluding last limit on negative limit. */
   @Test
   public void shouldReturnBooksExcludingLastLimitOnNegativeLimit() {
     RestAssured.given()
@@ -112,6 +121,7 @@ public class TS02_GetBook extends BaseTest {
         .body("$", Matchers.not(Matchers.empty()));
   }
 
+  /** Should return a single book by ID. */
   @Test
   public void shouldReturnSingleBookByID() {
     RestAssured.given()
@@ -123,6 +133,7 @@ public class TS02_GetBook extends BaseTest {
         .body("id", Matchers.equalTo(10));
   }
 
+  /** Should not return a book when book ID is an invalid string. */
   @Test
   public void shouldNotReturnBookWhenBookIdIsInvalidString() {
     RestAssured.given()
@@ -134,6 +145,7 @@ public class TS02_GetBook extends BaseTest {
         .body("error", Matchers.equalTo("Book not found"));
   }
 
+  /** Should not return a book when book ID does not exist. */
   @Test
   public void shouldNotReturnBookWhenBookIdNotExists() {
     RestAssured.given()
@@ -145,6 +157,7 @@ public class TS02_GetBook extends BaseTest {
         .body("error", Matchers.equalTo("Book not found"));
   }
 
+  /** Should return all books when book ID is empty. */
   @Test
   public void shouldReturnAllBooksWhenBookIdisEmpty() {
     RestAssured.given()
@@ -156,6 +169,7 @@ public class TS02_GetBook extends BaseTest {
         .body("$.size()", Matchers.greaterThanOrEqualTo(10));
   }
 
+  /** Should return books containing the author. */
   @Test
   public void shouldReturnBooksContainsAuthor() {
     RestAssured.given()
@@ -167,6 +181,7 @@ public class TS02_GetBook extends BaseTest {
         .body("author", Matchers.hasItem(Matchers.containsString("Book Author")));
   }
 
+  /** Should return books containing the title. */
   @Test
   public void shouldReturnBooksContainsTitle() {
     RestAssured.given()
@@ -178,6 +193,7 @@ public class TS02_GetBook extends BaseTest {
         .body("title", Matchers.hasItem(Matchers.containsString("Book Title")));
   }
 
+  /** Should return books containing both title and author. */
   @Test
   public void shouldReturnBooksContainsTitleAndAuthor() {
     RestAssured.given()
@@ -191,6 +207,7 @@ public class TS02_GetBook extends BaseTest {
         .body("author", Matchers.hasItem(Matchers.containsStringIgnoringCase("book author")));
   }
 
+  /** Should return a single book with title and author. */
   @Test
   public void shouldReturnSingleBookWithTitleAndAuthor() {
     RestAssured.given()
@@ -205,6 +222,7 @@ public class TS02_GetBook extends BaseTest {
         .body("author", Matchers.hasItem(Matchers.containsStringIgnoringCase("book author 10")));
   }
 
+  /** Should return 404 when book search is without author and title. */
   @Test
   public void shouldReturn404WhenBookSearchWithoutAuthorAndTitle() {
     RestAssured.given()
@@ -215,6 +233,7 @@ public class TS02_GetBook extends BaseTest {
         .body("error", Matchers.equalTo("Please provide at least a title or author for search"));
   }
 
+  /** Should return no books when book with title and author does not exist. */
   @Test
   public void shouldReturnNoBooksWhenBookWithTitleAndAuthorNotExists() {
     RestAssured.given()
@@ -227,6 +246,7 @@ public class TS02_GetBook extends BaseTest {
         .body("error", Matchers.equalTo("Books not found for search"));
   }
 
+  /** Should return no books when book with author does not exist. */
   @Test
   public void shouldReturnNoBooksWhenBookWithAuthorNotExists() {
     RestAssured.given()
@@ -238,6 +258,7 @@ public class TS02_GetBook extends BaseTest {
         .body("error", Matchers.equalTo("Books not found for search"));
   }
 
+  /** Should return no books when book with title does not exist. */
   @Test
   public void shouldReturnNoBooksWhenBookWithTitleNotExists() {
     RestAssured.given()

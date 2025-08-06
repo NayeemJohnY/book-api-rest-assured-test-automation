@@ -8,8 +8,14 @@ import org.testng.annotations.Test;
 import pojos.Book;
 import utils.JsonUtils;
 
+/**
+ * Test cases for creating books via the API.
+ */
 public class TS01_CreateBook extends BaseTest {
 
+  /**
+   * Should create a book when title and author are valid.
+   */
   @Test
   public void shouldCreateBookWhenTitleAndAuthorAreValid() {
     Book book = new Book("Rest API Automation", "John Ferd");
@@ -33,6 +39,9 @@ public class TS01_CreateBook extends BaseTest {
     Assert.assertEquals(responseBook.getAuthor(), book.getAuthor(), "Author mismatch");
   }
 
+  /**
+   * Should reject duplicate book creation.
+   */
   @Test(dependsOnMethods = "shouldCreateBookWhenTitleAndAuthorAreValid")
   public void shouldRejectDuplicateBookCreation() {
     Book book = new Book("Rest API Automation", "John Ferd");
@@ -48,6 +57,9 @@ public class TS01_CreateBook extends BaseTest {
         .body("error", Matchers.equalTo("A book with the same title and author already exists"));
   }
 
+  /**
+   * Should create a book using JsonStringify when title and author are valid.
+   */
   @Test
   public void shouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid() {
     Book book = new Book("Quick Start and Build API using Nodejs express", "Nayeem John");
@@ -66,6 +78,9 @@ public class TS01_CreateBook extends BaseTest {
         .body("title", Matchers.equalTo(book.getTitle()));
   }
 
+  /**
+   * Should create a book when title is different for the same author.
+   */
   @Test(dependsOnMethods = "shouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid")
   public void shouldCreateBookWhenTitleIsDifferentForSameAuthor() {
     Book book = new Book("TestNG Annoation Introduction", "Nayeem John");
@@ -84,6 +99,9 @@ public class TS01_CreateBook extends BaseTest {
         .body("title", Matchers.equalTo(book.getTitle()));
   }
 
+  /**
+   * Should create a book when author is different for the same book.
+   */
   @Test(dependsOnMethods = "shouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid")
   public void shouldCreateBookWhenAuthorIsDifferentForSameBook() {
     Book book = new Book("TestNG Annoation Introduction", "David James");
@@ -102,6 +120,9 @@ public class TS01_CreateBook extends BaseTest {
         .body("title", Matchers.equalTo(book.getTitle()));
   }
 
+  /**
+   * Should return 401 when no auth token is provided.
+   */
   @Test
   public void shouldReturn401WhenNoAuthTokenProvided() {
     Book book = new Book("Rest API Automation", "John Ferd");
@@ -115,6 +136,9 @@ public class TS01_CreateBook extends BaseTest {
         .body("error", Matchers.equalTo("Unauthorized. No token provided."));
   }
 
+  /**
+   * Should reject book creation with missing title and author.
+   */
   @Test
   public void shouldRejectBookWithMissingTitleAndAuthor() {
     Book book = new Book();
@@ -130,6 +154,9 @@ public class TS01_CreateBook extends BaseTest {
         .body("error", Matchers.equalTo("Both title and author are required."));
   }
 
+  /**
+   * Should reject book creation when title is missing.
+   */
   @Test
   public void shouldRejectBookWhenTitleIsMissing() {
     Book book = new Book();
@@ -146,6 +173,9 @@ public class TS01_CreateBook extends BaseTest {
         .body("error", Matchers.equalTo("Both title and author are required."));
   }
 
+  /**
+   * Should reject book creation when author is missing.
+   */
   @Test
   public void shouldRejectBookWhenAuthorIsMissing() {
     Book book = new Book();
@@ -162,6 +192,9 @@ public class TS01_CreateBook extends BaseTest {
         .body("error", Matchers.equalTo("Both title and author are required."));
   }
 
+  /**
+   * Should reject book creation when client provides an ID.
+   */
   @Test
   public void shouldRejectBookCreationWithClientProvidedId() {
     Book book = new Book(123, "Rest API Automation", "John Ferd");

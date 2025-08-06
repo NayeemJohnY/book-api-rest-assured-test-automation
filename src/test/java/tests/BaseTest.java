@@ -7,7 +7,6 @@ import java.util.function.Supplier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
-import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -15,6 +14,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import utils.RestAssuredLogFilter;
 
+/** Base test class for API tests, providing setup and teardown logic. */
 public class BaseTest {
   private static final String BASE_URI = "http://localhost:3000";
   private static final String BASE_PATH = "/api/books";
@@ -23,6 +23,7 @@ public class BaseTest {
   protected Logger logger = LogManager.getLogger(getClass());
   protected static final int MAX_RETRY_COUNT = 3;
 
+  /** Sets up the test suite with base URI, path, and filters. */
   @BeforeSuite
   public void setUpSuite() {
     RestAssured.baseURI = BASE_URI;
@@ -30,22 +31,34 @@ public class BaseTest {
     RestAssured.filters(new RestAssuredLogFilter());
   }
 
+  /**
+   * Runs before each test, sets up thread context.
+   *
+   * @param context the test context
+   */
   @BeforeTest
-  public void beforeTest(ITestContext context) {
+  public void beforeTest() {
     ThreadContext.put("testName", this.getClass().getSimpleName() + ".BeforeTest");
   }
 
+  /**
+   * Runs before each test method, sets up thread context.
+   *
+   * @param method the test method
+   */
   @BeforeMethod
   public void setup(Method method) {
     ThreadContext.put(
         "testName", method.getDeclaringClass().getSimpleName() + "." + method.getName());
   }
 
+  /** Runs after each test method, clears thread context. */
   @AfterMethod
   public void teardown() {
     ThreadContext.clearAll();
   }
 
+  /** Resets the books after the test suite completes. */
   @AfterSuite
   public void resetBooksAfterSuite() {
     RestAssured.given()
@@ -57,6 +70,12 @@ public class BaseTest {
         .statusCode(204);
   }
 
+  /**
+   * Retries a request if HTTP 429 is received, up to MAX_RETRY_COUNT.
+   *
+   * @param request the request supplier
+   * @return the response
+   */
   public Response retryRequest(Supplier<Response> request) {
     int retryCount = 0;
     Response response;

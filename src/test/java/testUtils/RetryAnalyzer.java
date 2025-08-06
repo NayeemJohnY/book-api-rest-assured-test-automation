@@ -7,11 +7,18 @@ import org.apache.logging.log4j.Logger;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
+/** Retry analyzer for TestNG tests to handle HTTP 429 responses. */
 public class RetryAnalyzer implements IRetryAnalyzer {
   private int retryCount = 0;
   private final int maxRetryCount = 2;
   private static final Logger logger = LogManager.getLogger(RetryAnalyzer.class);
 
+  /**
+   * Retries the test if the status code is 429 (Too Many Requests) and retry count is not exceeded.
+   *
+   * @param result the test result
+   * @return true if the test should be retried, false otherwise
+   */
   @Override
   public boolean retry(ITestResult result) {
     Object statusCode = result.getAttribute("statusCode");
