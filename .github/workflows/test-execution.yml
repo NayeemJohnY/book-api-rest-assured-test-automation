@@ -33,18 +33,18 @@ jobs:
       - name: Install dependencies
         run: 
           npm install --prefix books-nodejs-app
-          npm install -g pm2 --prefix books-nodejs-app
 
       - name: Start Book NodeJS App
         run: |
-          pm2 start index.js --name 'books-app'
+          pm2 start books-nodejs-app/app.js --name "books-nodejs-app" --cwd books-nodejs-app
+          sleep 20
 
       - name: Execute Test
         run: mvn clean test
 
       - name: Stop Book NodeJS App
         if: always()
-        run: pm2 stop 'books-app'
+        run: pm2 stop books-nodejs-app
 
       - name: Install Allure CLI
         if: success() || failure()
