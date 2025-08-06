@@ -3,6 +3,11 @@ name: Test Execution and Publish Report
 on:
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+  pages: write
+  
 jobs:
   test-execution:
     runs-on: ubuntu-latest
@@ -20,8 +25,17 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: maven-
 
+      - name: Start Book NodeJS App
+        run: |
+          npm start &
+          echo $! > pid.txt
+
       - name: Execute Test
         run: mvn clean test
+
+      - name: Stop Book NodeJS App
+        if : always()
+        run: kill $(cat pid.txt)
 
       - name: Install Allure CLI
         if: success() || failure()
