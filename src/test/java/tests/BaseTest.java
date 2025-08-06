@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import java.lang.reflect.Method;
@@ -28,7 +29,7 @@ public class BaseTest {
   public void setUpSuite() {
     RestAssured.baseURI = BASE_URI;
     RestAssured.basePath = BASE_PATH;
-    RestAssured.filters(new RestAssuredLogFilter());
+    RestAssured.filters(new RestAssuredLogFilter(), new AllureRestAssured());
   }
 
   /**

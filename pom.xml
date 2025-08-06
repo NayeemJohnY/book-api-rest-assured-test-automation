@@ -3,12 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>LIbraryAPITestingFramework</groupId>
-	<artifactId>LIbraryAPITestingFramework</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<groupId>book-api-rest-assured-test-automation</groupId>
+	<artifactId>book-api-rest-assured-test-automation</artifactId>
+	<version>1.0.0</version>
 
-	<name>LibraryAPITestingFramework</name>
+	<name>book-api-rest-assured-test-automation</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -80,7 +79,7 @@
 						<suiteXmlFile>testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
 					<systemPropertyVariables>
-					    <parallel>tests</parallel>
+						<parallel>tests</parallel>
 						<threadCount>4</threadCount>
 						<AMADEUS_TEST_SECRET>${env.AMADEUS_TEST_SECRET}</AMADEUS_TEST_SECRET>
 						<allure.results.directory>${project.basedir}/test-results/allure-results</allure.results.directory>

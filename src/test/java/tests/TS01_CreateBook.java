@@ -2,6 +2,11 @@ package tests;
 
 import static testUtils.LoggingMatcher.log;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
@@ -11,10 +16,14 @@ import testUtils.Assertion;
 import utils.JsonUtils;
 
 /** Test cases for creating books via the API. */
+@Epic("Book Management")
+@Feature("Create Book")
+@Severity(SeverityLevel.CRITICAL)
 public class TS01_CreateBook extends BaseTest {
 
   /** Should create a book when title and author are valid. */
   @Test
+  @Description("Creates a book with valid title and author and verifies the book is created.")
   public void shouldCreateBookWhenTitleAndAuthorAreValid() {
     Book book = new Book("Rest API Automation", "John Ferd");
     Book responseBook =
@@ -39,6 +48,7 @@ public class TS01_CreateBook extends BaseTest {
 
   /** Should reject duplicate book creation. */
   @Test(dependsOnMethods = "shouldCreateBookWhenTitleAndAuthorAreValid")
+  @Description("Attempts to create a duplicate book and expects a 409 Conflict error.")
   public void shouldRejectDuplicateBookCreation() {
     Book book = new Book("Rest API Automation", "John Ferd");
     RestAssured.given()
@@ -57,6 +67,7 @@ public class TS01_CreateBook extends BaseTest {
 
   /** Should create a book using JsonStringify when title and author are valid. */
   @Test
+  @Description("Creates a book using JsonStringify and verifies the book is created.")
   public void shouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid() {
     Book book = new Book("Quick Start and Build API using Nodejs express", "Nayeem John");
     String bookString = JsonUtils.JsonStringify(book);
@@ -76,6 +87,8 @@ public class TS01_CreateBook extends BaseTest {
 
   /** Should create a book when title is different for the same author. */
   @Test(dependsOnMethods = "shouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid")
+  @Description(
+      "Creates a book with a different title for the same author and verifies the book is created.")
   public void shouldCreateBookWhenTitleIsDifferentForSameAuthor() {
     Book book = new Book("TestNG Annoation Introduction", "Nayeem John");
     String bookString = JsonUtils.JsonStringify(book);
@@ -95,6 +108,8 @@ public class TS01_CreateBook extends BaseTest {
 
   /** Should create a book when author is different for the same book. */
   @Test(dependsOnMethods = "shouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid")
+  @Description(
+      "Creates a book with a different author for the same title and verifies the book is created.")
   public void shouldCreateBookWhenAuthorIsDifferentForSameBook() {
     Book book = new Book("TestNG Annoation Introduction", "David James");
     String bookString = JsonUtils.JsonStringify(book);
@@ -114,6 +129,8 @@ public class TS01_CreateBook extends BaseTest {
 
   /** Should return 401 when no auth token is provided. */
   @Test
+  @Description(
+      "Attempts to create a book without authentication and expects a 401 Unauthorized error.")
   public void shouldReturn401WhenNoAuthTokenProvided() {
     Book book = new Book("Rest API Automation", "John Ferd");
     RestAssured.given()
@@ -128,6 +145,9 @@ public class TS01_CreateBook extends BaseTest {
 
   /** Should reject book creation with missing title and author. */
   @Test
+  @Description(
+      "Attempts to create a book with missing title and author and expects a 400 Bad Request"
+          + " error.")
   public void shouldRejectBookWithMissingTitleAndAuthor() {
     Book book = new Book();
     RestAssured.given()
@@ -144,6 +164,7 @@ public class TS01_CreateBook extends BaseTest {
 
   /** Should reject book creation when title is missing. */
   @Test
+  @Description("Attempts to create a book with missing title and expects a 400 Bad Request error.")
   public void shouldRejectBookWhenTitleIsMissing() {
     Book book = new Book();
     book.setAuthor("OnlyAuthor");
@@ -161,6 +182,7 @@ public class TS01_CreateBook extends BaseTest {
 
   /** Should reject book creation when author is missing. */
   @Test
+  @Description("Attempts to create a book with missing author and expects a 400 Bad Request error.")
   public void shouldRejectBookWhenAuthorIsMissing() {
     Book book = new Book();
     book.setTitle("OnlyTitle");
@@ -178,6 +200,8 @@ public class TS01_CreateBook extends BaseTest {
 
   /** Should reject book creation when client provides an ID. */
   @Test
+  @Description(
+      "Attempts to create a book with a client-provided ID and expects a 400 Bad Request error.")
   public void shouldRejectBookCreationWithClientProvidedId() {
     Book book = new Book(123, "Rest API Automation", "John Ferd");
     RestAssured.given()

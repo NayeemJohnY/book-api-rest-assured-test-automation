@@ -2,6 +2,11 @@ package tests;
 
 import static testUtils.LoggingMatcher.log;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
@@ -11,12 +16,16 @@ import pojos.Book;
 import testUtils.Assertion;
 
 /** Test cases for deleting books via the API. */
+@Epic("Book Management")
+@Feature("Delete Book")
+@Severity(SeverityLevel.MINOR)
 public class TS04_DeleteBook extends BaseTest {
 
   private int bookId;
 
   /** Creates a book before running delete book tests. */
   @BeforeTest
+   @Description("Creates a set of books before running delete book tests to ensure data is available.")
   public void createBookBeforeDeleteBookTest() {
     Book book = new Book("Delete API Test Book Title ", "Delete API Test Book Author ");
     Book responseBook =
@@ -40,6 +49,8 @@ public class TS04_DeleteBook extends BaseTest {
 
   /** Should return 401 when no auth token is provided on delete. */
   @Test
+  @Description(
+      "Attempts to delete a book without authentication and expects a 401 Unauthorized error.")
   public void shouldReturn401WhenNoAuthTokenProvidedOnDelete() {
 
     RestAssured.given()
@@ -53,6 +64,8 @@ public class TS04_DeleteBook extends BaseTest {
 
   /** Should return 403 when user auth token is provided on delete. */
   @Test
+  @Description(
+      "Attempts to delete a book with a user token (not admin) and expects a 403 Forbidden error.")
   public void shouldReturn403WhenUserAuthTokenIsProvidedOnDelete() {
     RestAssured.given()
         .auth()
@@ -67,6 +80,8 @@ public class TS04_DeleteBook extends BaseTest {
 
   /** Should delete the book when book ID is valid. */
   @Test
+  @Description(
+      "Deletes a book using a valid admin token and verifies successful deletion (204 No Content).")
   public void shouldDeleteBookWhenBookIdIsValid() {
     RestAssured.given()
         .auth()
@@ -80,6 +95,9 @@ public class TS04_DeleteBook extends BaseTest {
 
   /** Should return 404 when the book is already deleted or does not exist. */
   @Test(dependsOnMethods = "shouldDeleteBookWhenBookIdIsValid")
+  @Description(
+      "Attempts to delete a book that is already deleted or does not exist and expects a 404 Not"
+          + " Found error.")
   public void shouldReturn404WhenBookIsAlreadyDeletedOrNotExists() {
     RestAssured.given()
         .auth()
