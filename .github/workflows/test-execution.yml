@@ -36,7 +36,7 @@ jobs:
 
       - name: Start Book NodeJS App
         run: |
-          npm start-pm2 --prefix books-nodejs-app
+          npm run start-pm2 --prefix books-nodejs-app
           sleep 20
 
       - name: Execute Test
@@ -44,7 +44,7 @@ jobs:
 
       - name: Stop Book NodeJS App
         if: always()
-        run: npm stop-pm2 --prefix books-nodejs-app
+        run: npm run stop-pm2 --prefix books-nodejs-app
 
       - name: Install Allure CLI
         if: success() || failure()
