@@ -7,6 +7,8 @@ import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.ITestResult;
+import org.testng.Reporter;
 
 public class RestAssuredLogFilter implements Filter {
 
@@ -31,6 +33,15 @@ public class RestAssuredLogFilter implements Filter {
     logger.debug("Response Headers: {}", response.getHeaders());
     logger.debug("Response Body: {}", response.getBody().asPrettyString());
     response.then().log().ifValidationFails();
+
+    ITestResult result = Reporter.getCurrentTestResult();
+    if (result != null) {
+      result.setAttribute("statusCode", response.getStatusCode());
+      String retryAfter = response.getHeader("Retry-After");
+      if (retryAfter != null) {
+        result.setAttribute("retryAfter", Integer.parseInt(retryAfter));
+      }
+    }
 
     return response;
   }

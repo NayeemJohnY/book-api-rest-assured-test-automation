@@ -1,0 +1,103 @@
+name: Test Execution and Publish Report
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-execution:
+    runs-on: ubuntu-latest
+    container:
+      image: maven:3.9.6-eclipse-temurin-21
+
+    steps:
+      - name: Checkout the Repository to Runner
+        uses: actions/checkout@v4
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: /root/.m2/repository
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: maven-
+
+      - name: Execute Test
+        run: mvn clean test
+
+      - name: Install Allure CLI
+        if: success() || failure()
+        run: |
+          curl -o allure-2.27.0.tgz -L https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+          tar -xzf allure-2.27.0.tgz
+          mv allure-2.27.0 /opt/allure
+          ln -s /opt/allure/bin/allure /usr/bin/allure
+
+      - name: Get Previous Test Execution Workflow Run ID
+        if: success() || failure()
+        id: get-run-id
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const workflow_id = "test-execution.yml";
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id
+            });
+
+            const previousRun = runs.data.workflow_runs.find(run => run.id !== context.runId);
+
+            if (!previousRun) {
+              core.info("No previous run found — skipping history copy.");
+              core.setOutput("run_id", "");
+            } else {
+              core.info(`Previous run ID: ${previousRun.id}`);
+              core.setOutput("run_id", previousRun.id);
+            }
+
+      - name: Download Allure History from Previous Run
+        if: success() || failure()
+        uses: actions/download-artifact@v4
+        with:
+          name: test-results
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: test-results-prev-run
+          run-id: ${{ steps.get-run-id.outputs.run_id }}
+        continue-on-error: true
+
+      - name: Upload Test Results
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results
+          retention-days: 3
+
+      - name: Prepare Allure Report for Github Pages
+        if: success() || failure()
+        shell: bash
+        run: |
+          cp -r test-results/allure-report github-pages/allure-report
+
+      - name: Build Maven Javadocs
+        run: mvn javadoc:javadoc javadoc:test-javadoc
+
+      - name: Prepare Javadocs for Github Pages
+        shell: bash
+        run: |
+          cp -r target/reports github-pages/javadocs
+
+      - name: Setup Github Pages
+        if: success() || failure()
+        uses: actions/configure-pages@v5
+
+      - name: Upload Github Pages
+        if: success() || failure()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "github-pages/"
+          retention-days: 3
+
+      - name: Publish Github Pages
+        if: success() || failure()
+        id: publish
+        uses: actions/deploy-pages@v4

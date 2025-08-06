@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Library-Book-API-Test-Automation" parallel="tests" thread-count="5">
+<suite name="Library-Book-API-Test-Automation">
   <listeners>
     <listener class-name="testUtils.TestResultsLogListener"></listener>
+    <listener class-name="testUtils.AnnotationTransformer"></listener>
+    <listener class-name="io.qameta.allure.testng.AllureTestNg"></listener>
   </listeners>
   <test name="CreateBookTest">
     <classes>

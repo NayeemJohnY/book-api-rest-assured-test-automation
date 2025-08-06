@@ -28,28 +28,6 @@ function requireAdmin(req, res, next) {
 }
 
 // --------------------------
-// ⏱ Timeout Simulation (429)
-// --------------------------
-
-app.use((req, res, next) => {
-    let responded = false;
-
-    const timer = setTimeout(() => {
-        if (!responded) {
-            responded = true;
-            return res.status(429).json({ error: 'Request took too long. Try again later.' });
-        }
-    }, 3000); // 3-second timeout
-
-    res.on('finish', () => {
-        clearTimeout(timer);
-        responded = true;
-    });
-
-    next();
-});
-
-// --------------------------
 // 📊 Logger Middleware
 // --------------------------
 
@@ -68,7 +46,7 @@ app.use((req, res, next) => {
 
 const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 minute
-    max: 200,
+    max: 20,
     message: { error: 'Too many requests. Slow down.' }
 });
 
