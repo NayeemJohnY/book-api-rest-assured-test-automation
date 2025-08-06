@@ -63,7 +63,7 @@ public class TS03_UpdateBook extends BaseTest {
         .then()
         .statusCode(200)
         .body("id", Matchers.equalTo(bookId))
-        .body("author", Matchers.equalTo("Test PUT API Book Author Name"));
+        .body("title", Matchers.equalTo("Test PUT API Book Title"));
   }
 
   @Test
