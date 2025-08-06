@@ -178,7 +178,13 @@ app.put('/api/books/:id', requireAuth, (req, res) => {
 
     res.status(200).json(book);
 });
-;
+
+
+// DELETE All Books (requires auth + admin)
+app.delete('/api/books/reset', requireAuth, requireAdmin, (req, res) => {
+    books.length = 0;
+    res.status(204).send();
+});
 
 // DELETE book (requires auth + admin)
 app.delete('/api/books/:id', requireAuth, requireAdmin, (req, res) => {

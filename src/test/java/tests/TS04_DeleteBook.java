@@ -10,8 +10,6 @@ import pojos.Book;
 
 public class TS04_DeleteBook extends BaseTest {
 
-  protected static final String USER_ADMIN_TOKEN = "admin-token";
-
   private int bookId;
 
   @BeforeTest

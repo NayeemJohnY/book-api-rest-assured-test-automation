@@ -24,7 +24,6 @@ public class RestAssuredLogFilter implements Filter {
     logger.info("Request: {} {}", requestSpec.getMethod(), requestSpec.getURI());
     logger.debug("Request Headers: {}", requestSpec.getHeaders());
     logger.debug("Request Body: {}", requestBody);
-    requestSpec.log().ifValidationFails();
 
     Response response = filterContext.next(requestSpec, responseSpec);
 
