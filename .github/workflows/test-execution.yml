@@ -37,15 +37,18 @@ jobs:
       - name: Start Book NodeJS App
         run: |
           npm start --prefix books-nodejs-app & 
-          echo $! > pid.txt
-          sleep 10
+          echo $! > /tmp/pid.txt
+          while curl --silent --head --fail http://localhost:3000; do
+            echo "Waiting for app to be ready..."
+            sleep 5
+          done
 
       - name: Execute Test
         run: mvn clean test
 
       - name: Stop Book NodeJS App
         if: always()
-        run: kill $(cat books-nodejs-app/pid.txt)
+        run: kill $(cat /tmp/pid.txt)
 
       - name: Install Allure CLI
         if: success() || failure()
