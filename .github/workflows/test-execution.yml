@@ -30,25 +30,22 @@ jobs:
         with:
           node-version: 18
 
-      - name: Check Node.js version
-        run: |
-          node --version
-          npm --version
-
       - name: Install dependencies
-        run: npm install  
+        run: 
+          npm install --prefix books-nodejs-app
 
       - name: Start Book NodeJS App
         run: |
-          npm start &
+          npm start --prefix books-nodejs-app & 
           echo $! > pid.txt
+          sleep 10
 
       - name: Execute Test
         run: mvn clean test
 
       - name: Stop Book NodeJS App
         if: always()
-        run: kill $(cat pid.txt)
+        run: kill $(cat books-nodejs-app/pid.txt)
 
       - name: Install Allure CLI
         if: success() || failure()
