@@ -1,5 +1,7 @@
 package tests;
 
+import static testUtils.LoggingMatcher.log;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import java.util.ArrayList;
@@ -31,9 +33,9 @@ public class TS02_GetBook extends BaseTest {
                       .post())
           .then()
           .statusCode(201)
-          .body("id", Matchers.notNullValue())
-          .body("title", Matchers.equalTo(book.getTitle()))
-          .body("author", Matchers.equalTo(book.getAuthor()));
+          .body("id", log(logger, Matchers.notNullValue()))
+          .body("title", log(logger, Matchers.equalTo(book.getTitle())))
+          .body("author", log(logger, Matchers.equalTo(book.getAuthor())));
     }
   }
 
@@ -45,7 +47,7 @@ public class TS02_GetBook extends BaseTest {
         .get()
         .then()
         .statusCode(200)
-        .body("book.size()", Matchers.greaterThanOrEqualTo(10));
+        .body("book.size()", log(logger, Matchers.greaterThanOrEqualTo(10)));
   }
 
   /** Should return books by page number. */
@@ -57,7 +59,7 @@ public class TS02_GetBook extends BaseTest {
         .get()
         .then()
         .statusCode(200)
-        .body("id", Matchers.hasItem(Matchers.greaterThan(10)));
+        .body("id", log(logger, Matchers.hasItem(log(logger, Matchers.greaterThan(10)))));
   }
 
   /** Should return books by limit. */
@@ -69,7 +71,7 @@ public class TS02_GetBook extends BaseTest {
         .get()
         .then()
         .statusCode(200)
-        .body("$.size()", Matchers.equalTo(5));
+        .body("$.size()", log(logger, Matchers.equalTo(5)));
   }
 
   /** Should return books by limit and page. */
@@ -82,7 +84,7 @@ public class TS02_GetBook extends BaseTest {
         .get()
         .then()
         .statusCode(200)
-        .body("id", Matchers.hasItem(Matchers.greaterThan(10)));
+        .body("id", log(logger, Matchers.hasItem(log(logger, Matchers.greaterThan(10)))));
   }
 
   /** Should return no books if page number is not in range. */
@@ -94,7 +96,7 @@ public class TS02_GetBook extends BaseTest {
         .get()
         .then()
         .statusCode(200)
-        .body("$", Matchers.empty());
+        .body("$", log(logger, Matchers.empty()));
   }
 
   /** Should return no books on negative page. */
@@ -106,7 +108,7 @@ public class TS02_GetBook extends BaseTest {
         .get()
         .then()
         .statusCode(200)
-        .body("$", Matchers.empty());
+        .body("$", log(logger, Matchers.empty()));
   }
 
   /** Should return books excluding last limit on negative limit. */
@@ -118,7 +120,7 @@ public class TS02_GetBook extends BaseTest {
         .get()
         .then()
         .statusCode(200)
-        .body("$", Matchers.not(Matchers.empty()));
+        .body("$", log(logger, Matchers.not(log(logger, Matchers.empty()))));
   }
 
   /** Should return a single book by ID. */
@@ -130,7 +132,7 @@ public class TS02_GetBook extends BaseTest {
         .get("/{bookId}")
         .then()
         .statusCode(200)
-        .body("id", Matchers.equalTo(10));
+        .body("id", log(logger, Matchers.equalTo(10)));
   }
 
   /** Should not return a book when book ID is an invalid string. */
@@ -142,7 +144,7 @@ public class TS02_GetBook extends BaseTest {
         .get("/{bookId}")
         .then()
         .statusCode(404)
-        .body("error", Matchers.equalTo("Book not found"));
+        .body("error", log(logger, Matchers.equalTo("Book not found")));
   }
 
   /** Should not return a book when book ID does not exist. */
@@ -154,7 +156,7 @@ public class TS02_GetBook extends BaseTest {
         .get("/{bookId}")
         .then()
         .statusCode(404)
-        .body("error", Matchers.equalTo("Book not found"));
+        .body("error", log(logger, Matchers.equalTo("Book not found")));
   }
 
   /** Should return all books when book ID is empty. */
@@ -166,7 +168,7 @@ public class TS02_GetBook extends BaseTest {
         .get("/{bookId}")
         .then()
         .statusCode(200)
-        .body("$.size()", Matchers.greaterThanOrEqualTo(10));
+        .body("$.size()", log(logger, Matchers.greaterThanOrEqualTo(10)));
   }
 
   /** Should return books containing the author. */
@@ -178,7 +180,7 @@ public class TS02_GetBook extends BaseTest {
         .get("/search")
         .then()
         .statusCode(200)
-        .body("author", Matchers.hasItem(Matchers.containsString("Book Author")));
+        .body("author", log(logger, Matchers.hasItem(log(logger, Matchers.containsString("Book Author")))));
   }
 
   /** Should return books containing the title. */
@@ -190,7 +192,7 @@ public class TS02_GetBook extends BaseTest {
         .get("/search")
         .then()
         .statusCode(200)
-        .body("title", Matchers.hasItem(Matchers.containsString("Book Title")));
+        .body("title", log(logger, Matchers.hasItem(log(logger, Matchers.containsString("Book Title")))));
   }
 
   /** Should return books containing both title and author. */
@@ -203,8 +205,8 @@ public class TS02_GetBook extends BaseTest {
         .get("/search")
         .then()
         .statusCode(200)
-        .body("title", Matchers.hasItem(Matchers.containsString("Book Title")))
-        .body("author", Matchers.hasItem(Matchers.containsStringIgnoringCase("book author")));
+        .body("title", log(logger, Matchers.hasItem(log(logger, Matchers.containsString("Book Title")))))
+        .body("author", log(logger, Matchers.hasItem(log(logger, Matchers.containsStringIgnoringCase("book author")))));
   }
 
   /** Should return a single book with title and author. */
@@ -217,9 +219,9 @@ public class TS02_GetBook extends BaseTest {
         .get("/search")
         .then()
         .statusCode(200)
-        .body("$.size()", Matchers.equalTo(1))
-        .body("title", Matchers.hasItem(Matchers.containsString("Get API Test Book Title 10")))
-        .body("author", Matchers.hasItem(Matchers.containsStringIgnoringCase("book author 10")));
+        .body("$.size()", log(logger, Matchers.equalTo(1)))
+        .body("title", log(logger, Matchers.hasItem(log(logger, Matchers.containsString("Get API Test Book Title 10")))))
+        .body("author", log(logger, Matchers.hasItem(log(logger, Matchers.containsStringIgnoringCase("book author 10")))));
   }
 
   /** Should return 404 when book search is without author and title. */
@@ -230,7 +232,7 @@ public class TS02_GetBook extends BaseTest {
         .get("/search")
         .then()
         .statusCode(400)
-        .body("error", Matchers.equalTo("Please provide at least a title or author for search"));
+        .body("error", log(logger, Matchers.equalTo("Please provide at least a title or author for search")));
   }
 
   /** Should return no books when book with title and author does not exist. */
@@ -243,7 +245,7 @@ public class TS02_GetBook extends BaseTest {
         .get("/search")
         .then()
         .statusCode(404)
-        .body("error", Matchers.equalTo("Books not found for search"));
+        .body("error", log(logger, Matchers.equalTo("Books not found for search")));
   }
 
   /** Should return no books when book with author does not exist. */
@@ -255,7 +257,7 @@ public class TS02_GetBook extends BaseTest {
         .get("/search")
         .then()
         .statusCode(404)
-        .body("error", Matchers.equalTo("Books not found for search"));
+        .body("error", log(logger, Matchers.equalTo("Books not found for search")));
   }
 
   /** Should return no books when book with title does not exist. */
@@ -267,6 +269,6 @@ public class TS02_GetBook extends BaseTest {
         .get("/search")
         .then()
         .statusCode(404)
-        .body("error", Matchers.equalTo("Books not found for search"));
+        .body("error", log(logger, Matchers.equalTo("Books not found for search")));
   }
 }

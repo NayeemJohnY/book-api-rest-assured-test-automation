@@ -1,5 +1,7 @@
 package tests;
 
+import static testUtils.LoggingMatcher.log;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
@@ -48,7 +50,9 @@ public class TS01_CreateBook extends BaseTest {
         .post()
         .then()
         .statusCode(409)
-        .body("error", Matchers.equalTo("A book with the same title and author already exists"));
+        .body(
+            "error",
+            log(logger, Matchers.equalTo("A book with the same title and author already exists")));
   }
 
   /** Should create a book using JsonStringify when title and author are valid. */
@@ -65,9 +69,9 @@ public class TS01_CreateBook extends BaseTest {
         .post()
         .then()
         .statusCode(201)
-        .body("id", Matchers.notNullValue())
-        .body("author", Matchers.equalTo(book.getAuthor()))
-        .body("title", Matchers.equalTo(book.getTitle()));
+        .body("id", log(logger, Matchers.notNullValue()))
+        .body("author", log(logger, Matchers.equalTo(book.getAuthor())))
+        .body("title", log(logger, Matchers.equalTo(book.getTitle())));
   }
 
   /** Should create a book when title is different for the same author. */
@@ -84,9 +88,9 @@ public class TS01_CreateBook extends BaseTest {
         .post()
         .then()
         .statusCode(201)
-        .body("id", Matchers.notNullValue())
-        .body("author", Matchers.equalTo(book.getAuthor()))
-        .body("title", Matchers.equalTo(book.getTitle()));
+        .body("id", log(logger, Matchers.notNullValue()))
+        .body("author", log(logger, Matchers.equalTo(book.getAuthor())))
+        .body("title", log(logger, Matchers.equalTo(book.getTitle())));
   }
 
   /** Should create a book when author is different for the same book. */
@@ -103,9 +107,9 @@ public class TS01_CreateBook extends BaseTest {
         .post()
         .then()
         .statusCode(201)
-        .body("id", Matchers.notNullValue())
-        .body("author", Matchers.equalTo(book.getAuthor()))
-        .body("title", Matchers.equalTo(book.getTitle()));
+        .body("id", log(logger, Matchers.notNullValue()))
+        .body("author", log(logger, Matchers.equalTo(book.getAuthor())))
+        .body("title", log(logger, Matchers.equalTo(book.getTitle())));
   }
 
   /** Should return 401 when no auth token is provided. */
@@ -119,7 +123,7 @@ public class TS01_CreateBook extends BaseTest {
         .post()
         .then()
         .statusCode(401)
-        .body("error", Matchers.equalTo("Unauthorized. No token provided."));
+        .body("error", log(logger, Matchers.equalTo("Unauthorized. No token provided.")));
   }
 
   /** Should reject book creation with missing title and author. */
@@ -135,7 +139,7 @@ public class TS01_CreateBook extends BaseTest {
         .post()
         .then()
         .statusCode(400)
-        .body("error", Matchers.equalTo("Both title and author are required."));
+        .body("error", log(logger, Matchers.equalTo("Both title and author are required.")));
   }
 
   /** Should reject book creation when title is missing. */
@@ -152,7 +156,7 @@ public class TS01_CreateBook extends BaseTest {
         .post()
         .then()
         .statusCode(400)
-        .body("error", Matchers.equalTo("Both title and author are required."));
+        .body("error", log(logger, Matchers.equalTo("Both title and author are required.")));
   }
 
   /** Should reject book creation when author is missing. */
@@ -169,7 +173,7 @@ public class TS01_CreateBook extends BaseTest {
         .post()
         .then()
         .statusCode(400)
-        .body("error", Matchers.equalTo("Both title and author are required."));
+        .body("error", log(logger, Matchers.equalTo("Both title and author are required.")));
   }
 
   /** Should reject book creation when client provides an ID. */
@@ -185,6 +189,7 @@ public class TS01_CreateBook extends BaseTest {
         .post()
         .then()
         .statusCode(400)
-        .body("error", Matchers.equalTo("ID must not be provided when creating a book"));
+        .body(
+            "error", log(logger, Matchers.equalTo("ID must not be provided when creating a book")));
   }
 }

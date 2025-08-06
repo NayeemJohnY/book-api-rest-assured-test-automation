@@ -1,5 +1,7 @@
 package tests;
 
+import static testUtils.LoggingMatcher.log;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
@@ -46,7 +48,7 @@ public class TS04_DeleteBook extends BaseTest {
         .delete("/{bookId}")
         .then()
         .statusCode(401)
-        .body("error", Matchers.equalTo("Unauthorized. No token provided."));
+        .body("error", log(logger, Matchers.equalTo("Unauthorized. No token provided.")));
   }
 
   /** Should return 403 when user auth token is provided on delete. */
@@ -60,7 +62,7 @@ public class TS04_DeleteBook extends BaseTest {
         .delete("/{bookId}")
         .then()
         .statusCode(403)
-        .body("error", Matchers.equalTo("Forbidden. Admin access required."));
+        .body("error", log(logger, Matchers.equalTo("Forbidden. Admin access required.")));
   }
 
   /** Should delete the book when book ID is valid. */
@@ -87,6 +89,6 @@ public class TS04_DeleteBook extends BaseTest {
         .delete("/{bookId}")
         .then()
         .statusCode(404)
-        .body("error", Matchers.equalTo("Book not found"));
+        .body("error", log(logger, Matchers.equalTo("Book not found")));
   }
 }
