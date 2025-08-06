@@ -7,9 +7,6 @@
 	<artifactId>book-api-rest-assured-test-automation</artifactId>
 	<version>1.0.0</version>
 
-	<name>book-api-rest-assured-test-automation</name>
-	<url>http://maven.apache.org</url>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>21</maven.compiler.release>

@@ -32,11 +32,7 @@ public class BaseTest {
     RestAssured.filters(new RestAssuredLogFilter(), new AllureRestAssured());
   }
 
-  /**
-   * Runs before each test, sets up thread context.
-   *
-   * @param context the test context
-   */
+  /** Runs before each test, sets up thread context. */
   @BeforeTest
   public void beforeTest() {
     ThreadContext.put("testName", this.getClass().getSimpleName() + ".BeforeTest");

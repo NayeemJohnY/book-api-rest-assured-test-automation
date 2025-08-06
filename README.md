@@ -8,7 +8,7 @@ A comprehensive framework for automated API testing of a Book system.
 
 :link: [Framework Docs](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/index.html)
 
-:link: [Sample Allure Report](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/allure-report/index.html)
+:link: [Allure Report](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/allure-report/index.html)
 
 :link: [Java APIDocs](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/javadocs/apidocs/index.html)
 
@@ -37,7 +37,7 @@ A comprehensive framework for automated API testing of a Book system.
 - **RetryAnalyzer**: TestNG retry analyzer that re-runs failed tests (specifically for HTTP 429) up to a set number of times, with logging and Allure step reporting for each retry attempt.
 - **Logger & Custom Logging**: Uses Log4j2 for detailed logging of test execution, including a custom RestAssured filter (`RestAssuredLogFilter`) that logs HTTP requests and responses for every API call, and attaches status codes and retry info to TestNG results for better traceability.
 - **Allure Reporting**: Beautiful, interactive test reports with step-by-step details and retry history.
-- **CI/CD Ready:** Includes a sample GitHub Actions workflow for automated test execution and reporting.
+- **CI/CD Ready:** Includes a GitHub Actions workflow for automated test execution and reporting.
 
 ---
 
