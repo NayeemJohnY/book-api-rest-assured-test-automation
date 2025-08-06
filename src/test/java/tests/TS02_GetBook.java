@@ -26,8 +26,6 @@ public class TS02_GetBook extends BaseTest {
           .when()
           .post()
           .then()
-          .log()
-          .ifValidationFails()
           .statusCode(201)
           .body("id", Matchers.notNullValue())
           .body("title", Matchers.equalTo(book.getTitle()))
@@ -41,8 +39,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("book.size()", Matchers.greaterThanOrEqualTo(10));
   }
@@ -54,8 +50,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("id", Matchers.hasItem(Matchers.greaterThan(10)));
   }
@@ -67,8 +61,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("$.size()", Matchers.equalTo(5));
   }
@@ -81,8 +73,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("id", Matchers.hasItem(Matchers.greaterThan(10)));
   }
@@ -94,8 +84,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("$", Matchers.empty());
   }
@@ -107,8 +95,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("$", Matchers.empty());
   }
@@ -120,8 +106,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("$", Matchers.not(Matchers.empty()));
   }
@@ -133,8 +117,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/{bookId}")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("id", Matchers.equalTo(10));
   }
@@ -146,8 +128,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/{bookId}")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(404)
         .body("error", Matchers.equalTo("Book not found"));
   }
@@ -159,8 +139,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/{bookId}")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(404)
         .body("error", Matchers.equalTo("Book not found"));
   }
@@ -172,8 +150,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/{bookId}")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("$.size()", Matchers.greaterThanOrEqualTo(10));
   }
@@ -185,8 +161,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/search")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("author", Matchers.hasItem(Matchers.containsString("Book Author")));
   }
@@ -198,8 +172,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/search")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("title", Matchers.hasItem(Matchers.containsString("Book Title")));
   }
@@ -212,8 +184,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/search")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("title", Matchers.hasItem(Matchers.containsString("Book Title")))
         .body("author", Matchers.hasItem(Matchers.containsStringIgnoringCase("book author")));
@@ -227,8 +197,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/search")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("$.size()", Matchers.equalTo(1))
         .body("title", Matchers.hasItem(Matchers.containsString("Get API Test Book Title 10")))
@@ -241,8 +209,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/search")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(400)
         .body("error", Matchers.equalTo("Please provide at least a title or author for search"));
   }
@@ -255,8 +221,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/search")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(404)
         .body("error", Matchers.equalTo("Books not found for search"));
   }
@@ -268,8 +232,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/search")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(404)
         .body("error", Matchers.equalTo("Books not found for search"));
   }
@@ -281,8 +243,6 @@ public class TS02_GetBook extends BaseTest {
         .when()
         .get("/search")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(404)
         .body("error", Matchers.equalTo("Books not found for search"));
   }

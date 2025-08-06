@@ -26,8 +26,6 @@ public class TS04_DeleteBook extends BaseTest {
             .when()
             .post()
             .then()
-            .log()
-            .ifValidationFails()
             .statusCode(201)
             .extract()
             .as(Book.class);

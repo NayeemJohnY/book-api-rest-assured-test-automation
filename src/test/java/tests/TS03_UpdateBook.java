@@ -24,8 +24,6 @@ public class TS03_UpdateBook extends BaseTest {
             .when()
             .post()
             .then()
-            .log()
-            .ifValidationFails()
             .statusCode(201)
             .extract()
             .as(Book.class);
@@ -47,8 +45,6 @@ public class TS03_UpdateBook extends BaseTest {
         .when()
         .put("/{bookId}")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("id", Matchers.equalTo(bookId))
         .body("author", Matchers.equalTo("Test PUT API Book Author Name"));
@@ -65,8 +61,6 @@ public class TS03_UpdateBook extends BaseTest {
         .when()
         .put("/{bookId}")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(200)
         .body("id", Matchers.equalTo(bookId))
         .body("author", Matchers.equalTo("Test PUT API Book Author Name"));
@@ -80,8 +74,6 @@ public class TS03_UpdateBook extends BaseTest {
         .when()
         .put("/{bookId}")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(401)
         .body("error", Matchers.equalTo("Unauthorized. No token provided."));
   }
@@ -96,8 +88,6 @@ public class TS03_UpdateBook extends BaseTest {
         .when()
         .put("/{bookId}")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(404)
         .body("error", Matchers.equalTo("Book not found"));
   }
@@ -113,8 +103,6 @@ public class TS03_UpdateBook extends BaseTest {
         .when()
         .put("/{bookId}")
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(400)
         .body("error", Matchers.equalTo("Updating book ID is not allowed."));
   }
@@ -132,8 +120,6 @@ public class TS03_UpdateBook extends BaseTest {
             .when()
             .put("/{bookId}")
             .then()
-            .log()
-            .ifValidationFails()
             .statusCode(200)
             .extract()
             .as(Book.class);

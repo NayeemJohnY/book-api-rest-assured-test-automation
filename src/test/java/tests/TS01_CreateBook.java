@@ -22,8 +22,6 @@ public class TS01_CreateBook extends BaseTest {
             .when()
             .post()
             .then()
-            .log()
-            .ifValidationFails()
             .statusCode(201)
             .extract()
             .response()
@@ -44,8 +42,6 @@ public class TS01_CreateBook extends BaseTest {
         .when()
         .post()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(409)
         .body("error", Matchers.equalTo("A book with the same title and author already exists"));
   }
@@ -62,8 +58,6 @@ public class TS01_CreateBook extends BaseTest {
         .when()
         .post()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(201)
         .body("id", Matchers.notNullValue())
         .body("author", Matchers.equalTo(book.getAuthor()))
@@ -82,8 +76,6 @@ public class TS01_CreateBook extends BaseTest {
         .when()
         .post()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(201)
         .body("id", Matchers.notNullValue())
         .body("author", Matchers.equalTo(book.getAuthor()))
@@ -102,8 +94,6 @@ public class TS01_CreateBook extends BaseTest {
         .when()
         .post()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(201)
         .body("id", Matchers.notNullValue())
         .body("author", Matchers.equalTo(book.getAuthor()))
@@ -119,8 +109,6 @@ public class TS01_CreateBook extends BaseTest {
         .when()
         .post()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(401)
         .body("error", Matchers.equalTo("Unauthorized. No token provided."));
   }
@@ -136,8 +124,6 @@ public class TS01_CreateBook extends BaseTest {
         .when()
         .post()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(400)
         .body("error", Matchers.equalTo("Both title and author are required."));
   }
@@ -154,8 +140,6 @@ public class TS01_CreateBook extends BaseTest {
         .when()
         .post()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(400)
         .body("error", Matchers.equalTo("Both title and author are required."));
   }
@@ -172,8 +156,6 @@ public class TS01_CreateBook extends BaseTest {
         .when()
         .post()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(400)
         .body("error", Matchers.equalTo("Both title and author are required."));
   }
@@ -189,8 +171,6 @@ public class TS01_CreateBook extends BaseTest {
         .when()
         .post()
         .then()
-        .log()
-        .ifValidationFails()
         .statusCode(400)
         .body("error", Matchers.equalTo("ID must not be provided when creating a book"));
   }
