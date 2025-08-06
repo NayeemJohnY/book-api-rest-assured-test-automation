@@ -7,7 +7,7 @@ permissions:
   id-token: write
   contents: read
   pages: write
-  
+
 jobs:
   test-execution:
     runs-on: ubuntu-latest
@@ -25,6 +25,12 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: maven-
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Start Book NodeJS App
         run: |
           npm start &
@@ -34,7 +40,7 @@ jobs:
         run: mvn clean test
 
       - name: Stop Book NodeJS App
-        if : always()
+        if: always()
         run: kill $(cat pid.txt)
 
       - name: Install Allure CLI
@@ -77,6 +83,16 @@ jobs:
           path: test-results-prev-run
           run-id: ${{ steps.get-run-id.outputs.run_id }}
         continue-on-error: true
+
+      - name: Generate Allure Report
+        if: success() || failure()
+        run: |
+          if [ -d test-results-prev-run/allure-report/history ]; then
+            cp -r test-results-prev-run/allure-report/history test-results/allure-results/history
+            echo "Allure history copied from previous run."
+          fi
+
+          allure generate test-results/allure-results --clean -o test-results/allure-report
 
       - name: Upload Test Results
         if: success() || failure()
