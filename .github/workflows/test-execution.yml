@@ -38,10 +38,7 @@ jobs:
         run: |
           npm start --prefix books-nodejs-app & 
           echo $! > /tmp/pid.txt
-          while ! curl --silent --head --fail http://localhost:3000; do
-            echo "Waiting for app to be ready..."
-            sleep 5
-          done
+          sleep 20
 
       - name: Execute Test
         run: mvn clean test
