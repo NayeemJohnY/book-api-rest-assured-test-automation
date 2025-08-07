@@ -30,19 +30,10 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: maven-
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Start Book API NodeJS App
+        uses: NayeemJohnY/book-nodejs-app/.github/start-stop-nodejs-app@main
         with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: 
-          npm install --prefix books-nodejs-app
-
-      - name: Start Book NodeJS App
-        run: |
-          npm run start-pm2 --prefix books-nodejs-app
-          sleep 20
+          action: start
 
       - name: Execute Test
         run: |
@@ -53,9 +44,11 @@ jobs:
             mvn clean test
           fi
 
-      - name: Stop Book NodeJS App
+      - name: Stop Book API NodeJS App
         if: always()
-        run: npm run stop-pm2 --prefix books-nodejs-app
+        uses: NayeemJohnY/book-nodejs-app/.github/start-stop-nodejs-app@main
+        with:
+          action: stop
 
       - name: Install Allure CLI
         if: success() || failure()
