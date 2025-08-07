@@ -31,7 +31,7 @@ jobs:
           restore-keys: maven-
 
       - name: Start Book API NodeJS App
-        uses: NayeemJohnY/book-nodejs-app/.github/start-stop-nodejs-app@main
+        uses: NayeemJohnY/book-nodejs-app/.github/workflows/nodejs-app.yml@main
         with:
           action: start
 
@@ -46,7 +46,7 @@ jobs:
 
       - name: Stop Book API NodeJS App
         if: always()
-        uses: NayeemJohnY/book-nodejs-app/.github/start-stop-nodejs-app@main
+        uses: NayeemJohnY/book-nodejs-app/.github/workflows/nodejs-app.yml@main
         with:
           action: stop
 
