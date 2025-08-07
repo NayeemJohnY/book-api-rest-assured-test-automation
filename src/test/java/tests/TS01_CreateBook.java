@@ -27,15 +27,13 @@ public class TS01_CreateBook extends BaseTest {
   public void shouldCreateBookWhenTitleAndAuthorAreValid() {
     Book book = new Book("Rest API Automation", "John Ferd");
     Book responseBook =
-        retryRequest(
-                () ->
-                    RestAssured.given()
-                        .auth()
-                        .oauth2(USER_AUTH_TOKEN)
-                        .contentType(ContentType.JSON)
-                        .body(book)
-                        .when()
-                        .post())
+        RestAssured.given()
+            .auth()
+            .oauth2(USER_AUTH_TOKEN)
+            .contentType(ContentType.JSON)
+            .body(book)
+            .when()
+            .post()
             .then()
             .statusCode(201)
             .extract()

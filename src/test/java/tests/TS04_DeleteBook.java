@@ -25,17 +25,20 @@ public class TS04_DeleteBook extends BaseTest {
 
   /** Creates a book before running delete book tests. */
   @BeforeTest
-   @Description("Creates a set of books before running delete book tests to ensure data is available.")
+  @Description(
+      "Creates a set of books before running delete book tests to ensure data is available.")
   public void createBookBeforeDeleteBookTest() {
-    Book book = new Book("Delete API Test Book Title ", "Delete API Test Book Author ");
+    Book book = new Book("Delete API Test Book Title", "Delete API Test Book Author");
     Book responseBook =
-        RestAssured.given()
-            .auth()
-            .oauth2(USER_AUTH_TOKEN)
-            .contentType(ContentType.JSON)
-            .body(book)
-            .when()
-            .post()
+        retryRequest(
+                () ->
+                    RestAssured.given()
+                        .auth()
+                        .oauth2(USER_AUTH_TOKEN)
+                        .contentType(ContentType.JSON)
+                        .body(book)
+                        .when()
+                        .post())
             .then()
             .statusCode(201)
             .extract()

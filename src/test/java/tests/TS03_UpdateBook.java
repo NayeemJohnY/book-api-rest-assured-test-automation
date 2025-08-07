@@ -25,17 +25,20 @@ public class TS03_UpdateBook extends BaseTest {
 
   /** Creates a book before running update book tests. */
   @BeforeTest
-   @Description("Creates a set of books before running update book tests to ensure data is available.")
+  @Description(
+      "Creates a set of books before running update book tests to ensure data is available.")
   public void createBookBeforeUpdateBookTest() {
-    Book book = new Book("PUT API Test Book Title ", "PUT API Test Book Author ");
+    Book book = new Book("PUT API Test Book Title", "PUT API Test Book Author");
     Book responseBook =
-        RestAssured.given()
-            .auth()
-            .oauth2(USER_AUTH_TOKEN)
-            .contentType(ContentType.JSON)
-            .body(book)
-            .when()
-            .post()
+        retryRequest(
+                () ->
+                    RestAssured.given()
+                        .auth()
+                        .oauth2(USER_AUTH_TOKEN)
+                        .contentType(ContentType.JSON)
+                        .body(book)
+                        .when()
+                        .post())
             .then()
             .statusCode(201)
             .extract()
@@ -85,7 +88,8 @@ public class TS03_UpdateBook extends BaseTest {
 
   /** Should return 401 when no auth is provided on update book. */
   @Test
-  @Description("Attempts to update a book without authentication and expects a 401 Unauthorized error.")
+  @Description(
+      "Attempts to update a book without authentication and expects a 401 Unauthorized error.")
   public void shouldReturn401WhenNoAuthIsProvidedOnUpdateBook() {
     RestAssured.given()
         .contentType(ContentType.JSON)
@@ -115,7 +119,9 @@ public class TS03_UpdateBook extends BaseTest {
 
   /** Should return 400 when a different book ID is given in the body. */
   @Test
-  @Description("Attempts to update a book with a mismatched ID in the request body and expects a 400 Bad Request error.")
+  @Description(
+      "Attempts to update a book with a mismatched ID in the request body and expects a 400 Bad"
+          + " Request error.")
   public void shouldReturn400WhenDifferentBookIdIsGivenInBody() {
     RestAssured.given()
         .contentType(ContentType.JSON)
@@ -132,7 +138,9 @@ public class TS03_UpdateBook extends BaseTest {
 
   /** Should update the book when the same book ID is given in the body. */
   @Test
-  @Description("Updates a book when the same book ID is provided in the request body and verifies the update.")
+  @Description(
+      "Updates a book when the same book ID is provided in the request body and verifies the"
+          + " update.")
   public void shouldUpdateBookWhenSameBookIdIsGivenInBody() {
     Book book = new Book(bookId, "Test PUT API Book Title 2", "Test PUT API Book Author Name 2");
     Book responseBook =
