@@ -73,10 +73,6 @@ book-api-rest-assured-test-automation/
 ├── .gitignore                                      # Git ignore rules
 │
 │
-├── books-nodejs-app/                               # Node.js mock Book API server
-│   ├── index.js                                    # Express API implementation
-│   ├── package.json                                # Node.js dependencies & scripts
-│   └── package-lock.json                           # NPM lock file
 │
 ├── github-pages/                                   # Static site for documentation/demo
 │   ├── index.html
@@ -121,15 +117,20 @@ book-api-rest-assured-test-automation/
 
 ## ▶️ Start the Node.js Book API
 
-1. Open a terminal and navigate to `books-nodejs-app`:
+The Node.js Book API has been moved to a separate repository: [NayeemJohnY/book-nodejs-app](https://github.com/NayeemJohnY/book-nodejs-app).
+
+1. **Clone the Node.js API repository:**
    ```
-   cd books-nodejs-app
+   git clone https://github.com/NayeemJohnY/book-nodejs-app.git
+   cd book-nodejs-app
    ```
-2. Install dependencies:
+
+2. **Install dependencies:**
    ```
    npm install
    ```
-3. Start the API server:
+
+3. **Start the API server:**
    ```
    npm start
    ```
