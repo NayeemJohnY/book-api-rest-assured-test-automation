@@ -94,7 +94,7 @@ public class BaseTest {
                 + retryCount
                 + ")";
 
-        logger.info(message);
+        logger.warn(message);
         try {
           Thread.sleep(retryAfterSeconds * 1000);
         } catch (InterruptedException e) {

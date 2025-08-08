@@ -34,7 +34,7 @@ public class RetryAnalyzer implements IRetryAnalyzer {
               + retryCount
               + ")";
 
-      logger.info(message);
+      logger.warn(message);
       Allure.step(message);
       try {
         Thread.sleep(retryAfterSeconds * 1000);

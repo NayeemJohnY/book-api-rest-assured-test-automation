@@ -45,11 +45,11 @@ public class LoggingMatcher<T> extends TypeSafeMatcher<T> {
   @Override
   protected boolean matchesSafely(T actual) {
     boolean result = matcher.matches(actual);
-    logger.info(
-        "Assertion : '{}': actual='{}', expected='{}'",
-        result ? "Passed" : "Failed",
-        actual,
-        matcher.toString());
+    if (result) {
+      logger.info("Assertion Passed: actual='{}', expected='{}'", actual, matcher.toString());
+    } else {
+      logger.error("Assertion Failed: actual='{}', expected='{}'", actual, matcher.toString());
+    }
     return result;
   }
 
