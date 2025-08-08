@@ -52,7 +52,6 @@ jobs:
 
       - name: Execute Test
         run: |
-          CMD=
           if [ "${{ github.event.inputs.parallel }}" = "true" ]; then
             mvn clean test -Dparallel=true
           else
