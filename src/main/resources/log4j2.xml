@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
   <Properties>
-    <Property name="filename">test-results/logs/libarary-books-api-test.log</Property>
+    <Property name="filename">test-results/logs/books-api-test.log</Property>
     <Property name="pattern">%style{[%date{yyyy-MM-dd HH:mm:ss.SSS zzz}]}{cyan} %style{[Thread ID: %tid]}{green} %style{[%X{testName}]}{yellow} %highlight{[%level]} %msg%n%throwable</Property>
   </Properties>
   <Appenders>
@@ -18,4 +18,5 @@
       <AppenderRef ref="File" />
     </Root>
   </Loggers>
+
 </Configuration>
