@@ -65,8 +65,6 @@ jobs:
       - name: Generate Allure Report
         if: success() || failure()
         uses: NayeemJohnY/actions/allure-report-with-history@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Test Results
         if: success() || failure()
