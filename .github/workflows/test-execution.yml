@@ -94,4 +94,4 @@ jobs:
 
       - name: Deploy GitHub Pages
         if: success() || failure()
-        uses: NayeemJohnY/actions/deploy-github-pages@main
+        uses: NayeemJohnY/actions/deploy-github-pages-site@main
