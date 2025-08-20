@@ -85,7 +85,7 @@ jobs:
         uses: NayeemJohnY/actions/prepare-github-pages@main
         with:
          reports-dir: test-results/allure-report
-         javadoc-dir: targets/reports
+         javadoc-dir: target/reports
 
       - name: Deploy GitHub Pages
         if: success() || failure()
