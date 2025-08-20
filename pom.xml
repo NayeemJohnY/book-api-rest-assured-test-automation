@@ -76,8 +76,6 @@
 						<suiteXmlFile>testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
 					<systemPropertyVariables>
-						<parallel>tests</parallel>
-						<threadCount>4</threadCount>
 						<AMADEUS_TEST_SECRET>${env.AMADEUS_TEST_SECRET}</AMADEUS_TEST_SECRET>
 						<allure.results.directory>${project.basedir}/test-results/allure-results</allure.results.directory>
 					</systemPropertyVariables>
