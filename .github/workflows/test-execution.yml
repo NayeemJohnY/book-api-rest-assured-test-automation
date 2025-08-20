@@ -76,21 +76,16 @@ jobs:
           path: test-results
           retention-days: 3
 
-      - name: Prepare Allure Report for Github Pages
-        if: success() || failure()
-        shell: bash
-        run: |
-          cp -r test-results/allure-report github-pages/allure-report
-
       - name: Build Maven Javadocs
         if: success() || failure()
         run: mvn javadoc:javadoc javadoc:test-javadoc
 
-      - name: Prepare Javadocs for Github Pages
+      - name: Prepare GitHub Pages Content
         if: success() || failure()
-        shell: bash
-        run: |
-          cp -r target/reports github-pages/javadocs
+        uses: NayeemJohnY/actions/prepare-github-pages@main
+        with:
+         reports-dir: test-results/allure-report
+         javadoc-dir: targets/reports
 
       - name: Deploy GitHub Pages
         if: success() || failure()
