@@ -4,9 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       parallel:
+        description: Run Test in Parallel
         type: boolean
-        description: Run Tests in Parallel
         default: false
+      
+      test_name:
+        description: Test Method / Test class Name (e.g., MyTestClass#myTestMethod or MyTestClass1, MyTestClass2)
+        required: false
+        type: string
+
+      test_group:
+        description: Test Group (e.g., smoke,regression or smoke)
+        required: false
+        type: string
 
 permissions:
   id-token: write
@@ -51,12 +61,24 @@ jobs:
           sleep 20
 
       - name: Execute Test
+        shell: bash
         run: |
-          if [ "${{ github.event.inputs.parallel }}" = "true" ]; then
-            mvn clean test -Dparallel=true
-          else
-            mvn clean test
+          EXTRA_PARAMS=""
+      
+          if ${{ inputs.parallel }} ; then
+            EXTRA_PARAMS+=" -Dparallel=true";
           fi
+
+          if [ "${{ inputs.test_name }}" != "" ]; then
+            EXTRA_PARAMS+=' -Dtest=${{ inputs.test_name }}';
+          fi
+
+          if [ "${{ inputs.test_group }}" != "" ]; then
+            EXTRA_PARAMS+=' -Dgroups=${{ inputs.test_group }}';
+          fi
+
+          echo "Running with: mvn clean test ${EXTRA_PARAMS}"
+          mvn clean test ${EXTRA_PARAMS}
 
       - name: Stop Book NodeJS App
         if: always()
@@ -74,6 +96,7 @@ jobs:
         with:
           name: test-results
           path: test-results
+          retention-days: 3
 
       - name: Build Maven Javadocs
         if: success() || failure()
