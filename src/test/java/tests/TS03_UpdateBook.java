@@ -24,7 +24,7 @@ public class TS03_UpdateBook extends BaseTest {
   private int bookId;
 
   /** Creates a book before running update book tests. */
-  @BeforeTest
+  @BeforeTest(alwaysRun = true)
   @Description(
       "Creates a set of books before running update book tests to ensure data is available.")
   public void createBookBeforeUpdateBookTest() {
@@ -51,7 +51,7 @@ public class TS03_UpdateBook extends BaseTest {
   }
 
   /** Should update the author of a book. */
-  @Test
+  @Test(groups = {"smoke", "regression"})
   @Description("Updates the author of an existing book and verifies the change.")
   public void shouldUpdateBookAuthor() {
     RestAssured.given()
@@ -69,7 +69,7 @@ public class TS03_UpdateBook extends BaseTest {
   }
 
   /** Should update the title of a book. */
-  @Test
+  @Test(groups = {"smoke", "regression"})
   @Description("Updates the title of an existing book and verifies the change.")
   public void shouldUpdateBookTitle() {
     RestAssured.given()
@@ -87,7 +87,7 @@ public class TS03_UpdateBook extends BaseTest {
   }
 
   /** Should return 401 when no auth is provided on update book. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to update a book without authentication and expects a 401 Unauthorized error.")
   public void shouldReturn401WhenNoAuthIsProvidedOnUpdateBook() {
@@ -102,7 +102,7 @@ public class TS03_UpdateBook extends BaseTest {
   }
 
   /** Should return 404 when book with ID does not exist. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description("Attempts to update a non-existent book and expects a 404 Not Found error.")
   public void shouldReturn404WhenBookWithIdIsNotExists() {
     RestAssured.given()
@@ -118,7 +118,7 @@ public class TS03_UpdateBook extends BaseTest {
   }
 
   /** Should return 400 when a different book ID is given in the body. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to update a book with a mismatched ID in the request body and expects a 400 Bad"
           + " Request error.")
@@ -137,7 +137,7 @@ public class TS03_UpdateBook extends BaseTest {
   }
 
   /** Should update the book when the same book ID is given in the body. */
-  @Test
+  @Test(groups = {"regression"})
   @Description(
       "Updates a book when the same book ID is provided in the request body and verifies the"
           + " update.")

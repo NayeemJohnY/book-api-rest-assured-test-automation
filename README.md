@@ -142,12 +142,44 @@ The Node.js Book API has been moved to a separate repository: [NayeemJohnY/book-
 
 1. Ensure the Node.js API server is running.
 2. In the project root, run:
-   ```
-   mvn clean test
-   ```
-   This will execute all TestNG tests defined in `testng.xml`.
 
----
+### Run All Tests
+```bash
+mvn clean test
+```
+
+### Run Tests in Parallel
+```bash
+mvn clean test -Dparallel=true
+```
+
+### Run Tests by Groups
+```bash
+# Run only smoke tests (critical functionality)
+mvn clean test -Dgroups=smoke
+
+# Run only regression tests (all tests)
+mvn clean test -Dgroups=regression
+
+# Run only negative tests (error handling)
+mvn clean test -Dgroups=negative
+
+# Run multiple groups
+mvn clean test -Dgroups="smoke,negative"
+```
+
+This will execute TestNG tests with the following groups:
+- **smoke**: Critical functionality tests (create, read, update, delete with valid data)
+- **regression**: All tests to verify existing features
+- **negative**: Error handling and validation tests
+
+## 📊 Test Groups
+
+| Group        | Description                          | Example Tests                                     |
+| ------------ | ------------------------------------ | ------------------------------------------------- |
+| `smoke`      | Critical, basic functionality        | Create book, Get book, Update book, Delete book   |
+| `regression` | All tests for comprehensive coverage | All positive and negative scenarios               |
+| `negative`   | Error handling and validation        | Invalid data, unauthorized access, missing fields |
 
 ## 📊 Generate Allure Report
 

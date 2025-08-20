@@ -25,7 +25,7 @@ public class BaseTest {
   protected static final int MAX_RETRY_COUNT = 3;
 
   /** Sets up the test suite with base URI, path, and filters. */
-  @BeforeSuite
+  @BeforeSuite(alwaysRun = true)
   public void setUpSuite() {
     RestAssured.baseURI = BASE_URI;
     RestAssured.basePath = BASE_PATH;
@@ -33,7 +33,7 @@ public class BaseTest {
   }
 
   /** Runs before each test, sets up thread context. */
-  @BeforeTest
+  @BeforeTest(alwaysRun = true)
   public void beforeTest() {
     ThreadContext.put("testName", this.getClass().getSimpleName() + ".BeforeTest");
   }
@@ -43,20 +43,20 @@ public class BaseTest {
    *
    * @param method the test method
    */
-  @BeforeMethod
+  @BeforeMethod(alwaysRun = true)
   public void setup(Method method) {
     ThreadContext.put(
         "testName", method.getDeclaringClass().getSimpleName() + "." + method.getName());
   }
 
   /** Runs after each test method, clears thread context. */
-  @AfterMethod
+  @AfterMethod(alwaysRun = true)
   public void teardown() {
     ThreadContext.clearAll();
   }
 
   /** Resets the books after the test suite completes. */
-  @AfterSuite
+  @AfterSuite(alwaysRun = true)
   public void resetBooksAfterSuite() {
     RestAssured.given()
         .auth()

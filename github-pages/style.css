@@ -33,7 +33,6 @@ body {
     color: #f0f4f8;
     padding: 20px;
     box-sizing: border-box;
-    line-height: 1.6;
 }
 
 .main-container {
@@ -50,6 +49,7 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.05);
     animation: fadeIn 0.8s ease-out;
+    position: relative;
 }
 
 header {
@@ -96,92 +96,14 @@ header {
     font-size: 1.2em;
 }
 
-.qa-container {
-    width: 100%;
-    max-width: 1000px;
-    text-align: left;
-    font-size: 1em;
-    font-weight: normal;
-    color: #e8e8e8;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 40px;
-    border-radius: 24px;
-    box-shadow: 0 16px 48px 0 rgba(79, 195, 247, 0.10), 0 2px 8px 0 rgba(255, 215, 0, 0.10);
-    border: 3px solid transparent;
-    background-clip: padding-box, border-box;
-    background-origin: border-box;
-    position: relative;
-}
-
-.qa-container::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    z-index: 0;
-    border-radius: 28px;
-    padding: 0;
-    background: linear-gradient(120deg, #4fc3f7 0%, #ffd700 100%);
-    opacity: 0.18;
-    filter: blur(2px);
-    pointer-events: none;
-}
-
-.qa-container>* {
-    position: relative;
-    z-index: 1;
-}
-
-.container {
-    width: 280px;
-    text-align: center;
-}
-
-a {
+h1 {
     color: #ffd700;
-    display: block;
-    text-decoration: none;
-    padding: 15px 25px;
-    font-size: 1.1em;
-    font-weight: 500;
-    margin: 10px 0;
-    border-radius: 10px;
-    background: rgba(255, 215, 0, 0.1);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-}
-
-a:hover,
-a:active {
-    text-decoration: none;
-    color: #ffffff;
-    background: rgba(255, 215, 0, 0.2);
-    border-color: rgba(255, 215, 0, 0.6);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
-}
-
-.code-link {
-    color: #4fc3f7 !important;
-    text-decoration: underline dotted !important;
-    padding: 2px 7px !important;
-    margin: 0 2px !important;
-    border-radius: 5px !important;
-    background: rgba(79, 195, 247, 0.18) !important;
-    border: 1.5px solid rgba(79, 195, 247, 0.35) !important;
-    transition: all 0.18s cubic-bezier(.4, 2, .6, 1) !important;
-    display: inline !important;
-    font-weight: 600 !important;
-    box-shadow: 0 1px 4px 0 rgba(79, 195, 247, 0.10);
-}
-
-.code-link:hover {
-    color: #fff !important;
-    background: linear-gradient(90deg, #4fc3f7 0%, #ffd700 100%) !important;
-    border-color: #ffd700 !important;
-    text-decoration: underline solid !important;
-    box-shadow: 0 2px 12px 0 rgba(79, 195, 247, 0.18), 0 1px 8px 0 rgba(255, 215, 0, 0.10) !important;
-    filter: brightness(1.08) saturate(1.2);
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 2.8em;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(255, 215, 0, 0.18);
+    letter-spacing: 1.5px;
 }
 
 h2 {
@@ -192,43 +114,7 @@ h2 {
     font-weight: 600;
     text-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
     letter-spacing: 1px;
-}
-
-dl {
-    line-height: 1.8;
-}
-
-dt {
-    margin-top: 25px;
-    margin-bottom: 12px;
-    color: #ffd700;
-    font-size: 1.15em;
-    font-weight: 600;
-    padding-left: 10px;
-    border-left: 4px solid #ffd700;
-    background: rgba(255, 215, 0, 0.05);
-    padding: 12px 15px;
-    border-radius: 5px;
-}
-
-dd {
-    margin-left: 0px;
-    margin-bottom: 20px;
-    text-align: justify;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
-    border-left: 3px solid rgba(79, 195, 247, 0.3);
-}
-
-code {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 0.9em;
-    color: #ffeb3b;
-    border: 1px solid rgba(255, 235, 59, 0.2);
+    margin-top: 40px;
 }
 
 ul {
@@ -243,84 +129,221 @@ li {
     color: #e8e8e8;
 }
 
-li strong {
+li strong,
+li b {
     color: #4fc3f7;
     font-weight: 600;
 }
 
-@media (max-width: 768px) {
-    .qa-container {
-        padding: 25px;
-        margin: 0 10px;
-    }
-
-    .links-container {
-        padding: 20px;
-        margin: 0 10px;
-    }
-
-    body {
-        padding: 15px;
-    }
-
-    h2 {
-        font-size: 1.8em;
-    }
-
-    dt {
-        font-size: 1.1em;
-    }
-
-    dd {
-        padding: 12px 15px;
-    }
+/* Nested list spacing */
+ul ul {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 22px;
 }
 
-/* Enhanced visual effects */
-.main-container::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
+ul>li {
+    margin-bottom: 16px;
+    padding-left: 2px;
+}
+
+/* Table styling for tech stack */
+table {
     width: 100%;
-    height: 100%;
-    background:
-        radial-gradient(circle at 20% 80%, rgba(100, 65, 165, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(42, 8, 69, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
+    max-width: 800px;
+    margin: 25px 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #1a1f2e;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Smooth scrolling and animations */
-html {
-    scroll-behavior: smooth;
+table th,
+table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.13);
+    text-align: left;
 }
 
-.qa-container {
-    animation: fadeInUp 0.8s ease-out;
+table th {
+    background: rgba(255, 215, 0, 0.13);
+    color: #ffd700;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.links-container {
-    animation: fadeInDown 0.6s ease-out;
+table tr:nth-child(even) {
+    background: rgba(255, 215, 0, 0.05);
 }
 
-@keyframes fadeInUp {
+table tr:hover {
+    background: rgba(255, 215, 0, 0.1);
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+table td {
+    color: #e8e8e8;
+    font-size: 1em;
+}
+
+/* Pre/code block styling */
+pre,
+code {
+    font-family: 'Fira Mono', 'Consolas', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+}
+
+pre {
+    width: 100%;
+    background: var(--bg-darker);
+    color: var(--text-light);
+    border-radius: 12px;
+    padding: 25px;
+    margin: 20px 0;
+    overflow-x: auto;
+    font-size: 0.95em;
+    box-shadow: 0 2px 12px 0 rgba(255, 215, 0, 0.08);
+    border: 1.5px solid rgba(255, 215, 0, 0.13);
+    max-width: 98vw;
+    min-width: 0;
+}
+
+pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    border: none;
+    font-size: 1em;
+    white-space: pre;
+}
+
+code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #ffeb3b;
+    border: 1px solid rgba(255, 235, 59, 0.2);
+}
+
+/* Test groups section */
+.test-groups {
+    margin: 3rem 0;
+    width: 100%;
+}
+
+.group-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.group-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.group-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.group-card.smoke {
+    border-left-color: #ff6b35;
+}
+
+.group-card.regression {
+    border-left-color: #4ecdc4;
+}
+
+.group-card.negative {
+    border-left-color: #ff6b6b;
+}
+
+.group-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: #ffd700;
+    font-size: 1.3em;
+}
+
+.group-card p {
+    margin: 0 0 1rem 0;
+    color: #e8e8e8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.code-snippet {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #2c3e50;
+    color: #ecf0f1;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    border-left: 3px solid #4fc3f7;
+}
+
+/* GitHub corner */
+.github-corner {
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    z-index: 100;
+}
+
+.github-corner img {
+    width: 38px;
+    height: 38px;
+    transition: transform 0.3s ease;
+}
+
+.github-corner:hover img {
+    transform: scale(1.1);
+}
+
+/* Footer styling */
+footer {
+    margin-top: 40px;
+    color: #ffd700;
+    font-size: 1.1em;
+    letter-spacing: 0.5px;
+}
+
+footer a {
+    color: #4fc3f7;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #ffd700;
+}
+
+/* Font Awesome icons */
+.fa-solid,
+.fa-brands {
+    margin-right: 10px;
+    color: #ffd700;
+    filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
+}
+
+/* Animations */
+@keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
     }
 
     to {
@@ -348,80 +371,40 @@ html {
     background: rgba(255, 215, 0, 0.5);
 }
 
-/* Improved link icons */
-.fa-solid {
-    margin-right: 10px;
-    color: #ffd700;
-    filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-container {
+        padding: 25px;
+        margin: 0 10px;
+    }
+
+    body {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2.2em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .github-corner {
+        top: 10px;
+        right: 10px;
+    }
+
+    .github-corner img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .quick-links {
+        grid-template-columns: 1fr;
+    }
 }
 
-/* Table styling for tech stack */
-table {
-    width: 100%;
-    max-width: 800px;
-    margin: 25px 0;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: #1a1f2e;
-    /* Darker background */
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-table th,
-table td {
-    padding: 16px 24px;
-    text-align: left;
-    color: #ffffff;
-    /* Bright white text */
-}
-
-table th {
-    background: #2c3756;
-    /* Darker blue header */
-    color: #ffd700;
-    /* Golden header text */
-    font-weight: 600;
-    font-size: 1.1em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-table tr:nth-child(even) {
-    background: rgba(255, 215, 0, 0.05);
-    /* Subtle gold tint */
-}
-
-table tr:hover {
-    background: rgba(255, 215, 0, 0.1);
-    /* Golden hover effect */
-}
-
-table th,
-table td {
-    padding: 14px 18px;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.13);
-    text-align: left;
-}
-
-table th {
-    background: rgba(255, 215, 0, 0.13);
-    color: #ffd700;
-    font-size: 1.1em;
-    font-weight: 600;
-}
-
-table tr:last-child td {
-    border-bottom: none;
-}
-
-table td {
-    color: #e8e8e8;
-    font-size: 1em;
-}
-
-/* Responsive table */
 @media (max-width: 600px) {
 
     table,
@@ -442,113 +425,5 @@ table td {
     table td {
         border: none;
         padding: 10px 8px;
-    }
-}
-
-/* Pre/code block styling for project structure */
-pre,
-code {
-    font-family: 'Fira Mono', 'Consolas', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
-}
-
-pre {
-    width: 100%;
-    background: var(--bg-darker);
-    color: var(--text-light);
-    border-radius: 12px;
-    padding: 25px;
-    margin: 20px 0;
-    overflow-x: auto;
-    font-size: 0.95em;
-    box-shadow: 0 2px 12px 0 rgba(255, 215, 0, 0.08);
-    border: 1.5px solid rgba(255, 215, 0, 0.13);
-    max-width: 98vw;
-    min-width: 0;
-    /* Allow horizontal scroll for long lines */
-}
-
-pre code {
-    background: none;
-    color: inherit;
-    padding: 0;
-    border: none;
-    font-size: 1em;
-    white-space: pre;
-    /* Prevent code from wrapping */
-}
-
-/* Nested list spacing for class/utilities section */
-ul ul {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 22px;
-}
-
-/* Heading spacing improvements */
-h1 {
-    color: #ffd700;
-    text-align: center;
-    margin-bottom: 18px;
-    font-size: 2.8em;
-    font-weight: 700;
-    text-shadow: 0 2px 8px rgba(255, 215, 0, 0.18);
-    letter-spacing: 1.5px;
-}
-
-h2 {
-    margin-top: 40px;
-}
-
-/* List item tweaks for better readability */
-ul>li {
-    margin-bottom: 16px;
-    padding-left: 2px;
-}
-
-ol>li {
-    margin-bottom: 14px;
-    padding-left: 2px;
-}
-
-/* Footer styling */
-footer {
-    margin-top: 40px;
-    color: #ffd700;
-    font-size: 1.1em;
-    letter-spacing: 0.5px;
-}
-
-footer a {
-    color: #4fc3f7;
-    text-decoration: underline;
-    font-weight: 600;
-}
-
-footer a:hover {
-    color: #ffd700;
-    background: none;
-}
-
-.github-corner {
-    position: absolute;
-    top: 18px;
-    right: 24px;
-    z-index: 100;
-}
-
-.github-corner img {
-    width: 38px;
-    height: 38px;
-}
-
-@media (max-width: 600px) {
-    .github-corner {
-        top: 10px;
-        right: 10px;
-    }
-
-    .github-corner img {
-        width: 10px;
-        height: 10px;
     }
 }

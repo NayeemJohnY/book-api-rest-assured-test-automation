@@ -23,7 +23,7 @@ import pojos.Book;
 public class TS02_GetBook extends BaseTest {
 
   /** Creates books before running get book tests. */
-  @BeforeTest
+  @BeforeTest(alwaysRun = true)
   @Description("Creates a set of books before running get book tests to ensure data is available.")
   public void createBooksBeforeGetBookTest() {
     List<Book> books = new ArrayList<>();
@@ -49,7 +49,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return books for default page 1. */
-  @Test
+  @Test(groups = {"smoke", "regression"})
   @Description("Retrieves books for default page 1 and verifies at least 10 books are returned.")
   public void shouldReturnBooksForDefaultPage1() {
     RestAssured.given()
@@ -61,7 +61,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return books by page number. */
-  @Test
+  @Test(groups = {"regression"})
   @Description("Retrieves books by page number and verifies correct books are returned.")
   public void shouldReturnBooksByPageNumber() {
     RestAssured.given()
@@ -74,7 +74,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return books by limit. */
-  @Test
+  @Test(groups = {"regression"})
   @Description(
       "Retrieves books by limit and verifies the number of books returned matches the limit.")
   public void shouldReturnBooksByLimit() {
@@ -88,7 +88,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return books by limit and page. */
-  @Test
+  @Test(groups = {"regression"})
   @Description("Retrieves books by limit and page and verifies correct books are returned.")
   public void shouldReturnBooksByLimitAndPage() {
     RestAssured.given()
@@ -102,7 +102,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return no books if page number is not in range. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to retrieve books with an out-of-range page number and expects no books returned.")
   public void shouldReturnNoBooksIfPageNumberIsNotInRange() {
@@ -116,7 +116,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return no books on negative page. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to retrieve books with a negative page number and expects no books returned.")
   public void shouldReturnNoBooksOnNegativePage() {
@@ -130,7 +130,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return books excluding last limit on negative limit. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description("Retrieves books with a negative limit and verifies books are still returned.")
   public void shouldReturnBooksExcludingLastLimitOnNegativeLimit() {
     RestAssured.given()
@@ -143,7 +143,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return a single book by ID. */
-  @Test
+  @Test(groups = {"smoke", "regression"})
   @Description("Retrieves a single book by ID and verifies the correct book is returned.")
   public void shouldReturnSingleBookByID() {
     RestAssured.given()
@@ -156,7 +156,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should not return a book when book ID is an invalid string. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description("Attempts to retrieve a book with an invalid string ID and expects a 404 error.")
   public void shouldNotReturnBookWhenBookIdIsInvalidString() {
     RestAssured.given()
@@ -169,7 +169,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should not return a book when book ID does not exist. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description("Attempts to retrieve a book with a non-existent ID and expects a 404 error.")
   public void shouldNotReturnBookWhenBookIdNotExists() {
     RestAssured.given()
@@ -182,7 +182,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return all books when book ID is empty. */
-  @Test
+  @Test(groups = {"regression"})
   @Description(
       "Retrieves all books when book ID is empty and verifies the response contains books.")
   public void shouldReturnAllBooksWhenBookIdisEmpty() {
@@ -196,7 +196,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return books containing the author. */
-  @Test
+  @Test(groups = {"regression"})
   @Description(
       "Searches for books by author and verifies books containing the author are returned.")
   public void shouldReturnBooksContainsAuthor() {
@@ -212,7 +212,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return books containing the title. */
-  @Test
+  @Test(groups = {"regression"})
   @Description("Searches for books by title and verifies books containing the title are returned.")
   public void shouldReturnBooksContainsTitle() {
     RestAssured.given()
@@ -227,7 +227,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return books containing both title and author. */
-  @Test
+  @Test(groups = {"regression"})
   @Description(
       "Searches for books by both title and author and verifies matching books are returned.")
   public void shouldReturnBooksContainsTitleAndAuthor() {
@@ -249,7 +249,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return a single book with title and author. */
-  @Test
+  @Test(groups = {"regression"})
   @Description(
       "Searches for a single book by title and author and verifies only one book is returned.")
   public void shouldReturnSingleBookWithTitleAndAuthor() {
@@ -276,7 +276,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return 404 when book search is without author and title. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description("Attempts to search for books without author and title and expects a 400 error.")
   public void shouldReturn404WhenBookSearchWithoutAuthorAndTitle() {
     RestAssured.given()
@@ -290,7 +290,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return no books when book with title and author does not exist. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description("Searches for a book with a non-existent title and author and expects a 404 error.")
   public void shouldReturnNoBooksWhenBookWithTitleAndAuthorNotExists() {
     RestAssured.given()
@@ -304,7 +304,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return no books when book with author does not exist. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description("Searches for a book with a non-existent author and expects a 404 error.")
   public void shouldReturnNoBooksWhenBookWithAuthorNotExists() {
     RestAssured.given()
@@ -317,7 +317,7 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should return no books when book with title does not exist. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description("Searches for a book with a non-existent title and expects a 404 error.")
   public void shouldReturnNoBooksWhenBookWithTitleNotExists() {
     RestAssured.given()

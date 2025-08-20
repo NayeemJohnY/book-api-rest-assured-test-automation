@@ -24,7 +24,7 @@ public class TS04_DeleteBook extends BaseTest {
   private int bookId;
 
   /** Creates a book before running delete book tests. */
-  @BeforeTest
+  @BeforeTest(alwaysRun = true)
   @Description(
       "Creates a set of books before running delete book tests to ensure data is available.")
   public void createBookBeforeDeleteBookTest() {
@@ -51,7 +51,7 @@ public class TS04_DeleteBook extends BaseTest {
   }
 
   /** Should return 401 when no auth token is provided on delete. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to delete a book without authentication and expects a 401 Unauthorized error.")
   public void shouldReturn401WhenNoAuthTokenProvidedOnDelete() {
@@ -66,7 +66,7 @@ public class TS04_DeleteBook extends BaseTest {
   }
 
   /** Should return 403 when user auth token is provided on delete. */
-  @Test
+  @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to delete a book with a user token (not admin) and expects a 403 Forbidden error.")
   public void shouldReturn403WhenUserAuthTokenIsProvidedOnDelete() {
@@ -82,7 +82,7 @@ public class TS04_DeleteBook extends BaseTest {
   }
 
   /** Should delete the book when book ID is valid. */
-  @Test
+  @Test(groups = {"smoke", "regression"})
   @Description(
       "Deletes a book using a valid admin token and verifies successful deletion (204 No Content).")
   public void shouldDeleteBookWhenBookIdIsValid() {
@@ -97,7 +97,9 @@ public class TS04_DeleteBook extends BaseTest {
   }
 
   /** Should return 404 when the book is already deleted or does not exist. */
-  @Test(dependsOnMethods = "shouldDeleteBookWhenBookIdIsValid")
+  @Test(
+      groups = {"negative", "regression"},
+      dependsOnMethods = "shouldDeleteBookWhenBookIdIsValid")
   @Description(
       "Attempts to delete a book that is already deleted or does not exist and expects a 404 Not"
           + " Found error.")

@@ -85,12 +85,14 @@
         <ul>
             <li><b>Node.js Book API:</b> RESTful API for books (CRUD, search, pagination, auth, rate limiting)</li>
             <li><b>Java Test Suite:</b> TestNG + RestAssured for automated API tests (Create, Get, Update, Delete)</li>
+            <li><b>Test Groups:</b> Organized test execution with <strong>smoke</strong>, <strong>regression</strong>, and <strong>negative</strong> test groups for targeted testing strategies</li>
+            <li><b>Parallel Execution:</b> Support for parallel test execution to reduce overall test execution time and improve CI/CD pipeline efficiency</li>
             <li><b>Retry Logic (retryRequest):</b> Retries API requests on HTTP 429, using Retry-After header or default
                 interval
             </li>
             <li><b>RetryAnalyzer:</b> TestNG retry analyzer for HTTP 429, with logging and Allure step reporting</li>
             <li><b>Logger & Custom Logging:</b> Log4j2 and RestAssuredLogFilter for detailed HTTP and test logs</li>
-            <li><b>Allure Reporting:</b> Interactive test reports with step-by-step details and retry history</li>
+            <li><b>Allure Reporting:</b> Comprehensive test reporting with Allure framework, providing detailed insights into test execution and results</li>
             <li><b>CI/CD Ready:</b> GitHub Actions workflow for automated test execution and reporting</li>
         </ul>
 
@@ -173,6 +175,26 @@
             ├── testng.xml                                     # TestNG suite configuration
         </code></pre>
 
+        <section class="test-groups">
+            <h2>📊 Test Groups</h2>
+            <div class="group-cards">
+                <div class="group-card smoke">
+                    <h3>🔥 Smoke Tests</h3>
+                    <p>Critical functionality tests including basic CRUD operations with valid data</p>
+                    <div class="code-snippet">mvn clean test -Dgroups=smoke</div>
+                </div>
+                <div class="group-card regression">
+                    <h3>🔄 Regression Tests</h3>
+                    <p>Comprehensive test coverage including all positive and negative scenarios</p>
+                    <div class="code-snippet">mvn clean test -Dgroups=regression</div>
+                </div>
+                <div class="group-card negative">
+                    <h3>❌ Negative Tests</h3>
+                    <p>Error handling validation including unauthorized access and invalid data</p>
+                    <div class="code-snippet">mvn clean test -Dgroups=negative</div>
+                </div>
+            </div>
+        </section>
 
         <footer
             style="width:100%;text-align:center;margin-top:40px;padding:18px 0 8px 0;color:#b0b0b0;font-size:1em;letter-spacing:0.5px;border-top:1.5px solid rgba(79,195,247,0.18);box-shadow:0 -2px 12px 0 rgba(79,195,247,0.08);">
