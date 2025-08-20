@@ -14,16 +14,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
-import testUtils.AnnotationTransformer;
 import testUtils.TestResultsLogListener;
 import utils.RestAssuredLogFilter;
 
 /** Base test class for API tests, providing setup and teardown logic. */
-@Listeners({
-  AnnotationTransformer.class,
-  TestResultsLogListener.class,
-  io.qameta.allure.testng.AllureTestNg.class
-})
+@Listeners({TestResultsLogListener.class, io.qameta.allure.testng.AllureTestNg.class})
 public class BaseTest {
   private static final String BASE_URI = "http://localhost:3000";
   private static final String BASE_PATH = "/api/books";
