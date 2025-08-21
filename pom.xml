@@ -1,12 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>book-api-rest-assured-test-automation</groupId>
 	<artifactId>book-api-rest-assured-test-automation</artifactId>
 	<version>1.0.0</version>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>21</maven.compiler.release>
@@ -18,7 +17,6 @@
 		<allure.restassured.version>2.29.1</allure.restassured.version>
 		<surefire.version>3.5.3</surefire.version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.testng</groupId>
@@ -30,25 +28,21 @@
 			<artifactId>rest-assured</artifactId>
 			<version>${restassured.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
@@ -79,6 +73,12 @@
 						<AMADEUS_TEST_SECRET>${env.AMADEUS_TEST_SECRET}</AMADEUS_TEST_SECRET>
 						<allure.results.directory>${project.basedir}/test-results/allure-results</allure.results.directory>
 					</systemPropertyVariables>
+					<properties>
+						<property>
+							<name>listener</name>
+							<value>testUtils.AnnotationTransformer</value>
+						</property>
+					</properties>
 				</configuration>
 			</plugin>
 		</plugins>
