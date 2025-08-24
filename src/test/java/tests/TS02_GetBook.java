@@ -51,7 +51,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should return books for default page 1. */
   @Test(groups = {"smoke", "regression"})
   @Description("Retrieves books for default page 1 and verifies at least 10 books are returned.")
-  public void shouldReturnBooksForDefaultPage1() {
+  public void testShouldReturnBooksForDefaultPage1() {
     RestAssured.given()
         .when()
         .get()
@@ -63,7 +63,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should return books by page number. */
   @Test(groups = {"regression"})
   @Description("Retrieves books by page number and verifies correct books are returned.")
-  public void shouldReturnBooksByPageNumber() {
+  public void testShouldReturnBooksByPageNumber() {
     RestAssured.given()
         .queryParam("page", "2")
         .when()
@@ -77,7 +77,7 @@ public class TS02_GetBook extends BaseTest {
   @Test(groups = {"regression"})
   @Description(
       "Retrieves books by limit and verifies the number of books returned matches the limit.")
-  public void shouldReturnBooksByLimit() {
+  public void testShouldReturnBooksByLimit() {
     RestAssured.given()
         .queryParam("limit", "5")
         .when()
@@ -90,7 +90,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should return books by limit and page. */
   @Test(groups = {"regression"})
   @Description("Retrieves books by limit and page and verifies correct books are returned.")
-  public void shouldReturnBooksByLimitAndPage() {
+  public void testShouldReturnBooksByLimitAndPage() {
     RestAssured.given()
         .queryParam("page", 3)
         .queryParam("limit", 5)
@@ -105,7 +105,7 @@ public class TS02_GetBook extends BaseTest {
   @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to retrieve books with an out-of-range page number and expects no books returned.")
-  public void shouldReturnNoBooksIfPageNumberIsNotInRange() {
+  public void testShouldReturnNoBooksIfPageNumberIsNotInRange() {
     RestAssured.given()
         .queryParam("page", "3")
         .when()
@@ -119,7 +119,7 @@ public class TS02_GetBook extends BaseTest {
   @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to retrieve books with a negative page number and expects no books returned.")
-  public void shouldReturnNoBooksOnNegativePage() {
+  public void testShouldReturnNoBooksOnNegativePage() {
     RestAssured.given()
         .queryParam("page", -3)
         .when()
@@ -132,7 +132,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should return books excluding last limit on negative limit. */
   @Test(groups = {"negative", "regression"})
   @Description("Retrieves books with a negative limit and verifies books are still returned.")
-  public void shouldReturnBooksExcludingLastLimitOnNegativeLimit() {
+  public void testShouldReturnBooksExcludingLastLimitOnNegativeLimit() {
     RestAssured.given()
         .queryParam("limit", -3)
         .when()
@@ -145,7 +145,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should return a single book by ID. */
   @Test(groups = {"smoke", "regression"})
   @Description("Retrieves a single book by ID and verifies the correct book is returned.")
-  public void shouldReturnSingleBookByID() {
+  public void testShouldReturnSingleBookByID() {
     RestAssured.given()
         .pathParam("bookId", 10)
         .when()
@@ -158,7 +158,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should not return a book when book ID is an invalid string. */
   @Test(groups = {"negative", "regression"})
   @Description("Attempts to retrieve a book with an invalid string ID and expects a 404 error.")
-  public void shouldNotReturnBookWhenBookIdIsInvalidString() {
+  public void testShouldNotReturnBookWhenBookIdIsInvalidString() {
     RestAssured.given()
         .pathParam("bookId", "invalid-book-id")
         .when()
@@ -171,7 +171,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should not return a book when book ID does not exist. */
   @Test(groups = {"negative", "regression"})
   @Description("Attempts to retrieve a book with a non-existent ID and expects a 404 error.")
-  public void shouldNotReturnBookWhenBookIdNotExists() {
+  public void testShouldNotReturnBookWhenBookIdNotExists() {
     RestAssured.given()
         .pathParam("bookId", 112345)
         .when()
@@ -185,7 +185,7 @@ public class TS02_GetBook extends BaseTest {
   @Test(groups = {"regression"})
   @Description(
       "Retrieves all books when book ID is empty and verifies the response contains books.")
-  public void shouldReturnAllBooksWhenBookIdisEmpty() {
+  public void testShouldReturnAllBooksWhenBookIdIsEmpty() {
     RestAssured.given()
         .pathParam("bookId", "")
         .when()
@@ -199,7 +199,7 @@ public class TS02_GetBook extends BaseTest {
   @Test(groups = {"regression"})
   @Description(
       "Searches for books by author and verifies books containing the author are returned.")
-  public void shouldReturnBooksContainsAuthor() {
+  public void testShouldReturnBooksContainsAuthor() {
     RestAssured.given()
         .queryParam("author", "Book Author")
         .when()
@@ -214,7 +214,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should return books containing the title. */
   @Test(groups = {"regression"})
   @Description("Searches for books by title and verifies books containing the title are returned.")
-  public void shouldReturnBooksContainsTitle() {
+  public void testShouldReturnBooksContainsTitle() {
     RestAssured.given()
         .queryParam("title", "Book Title")
         .when()
@@ -230,7 +230,7 @@ public class TS02_GetBook extends BaseTest {
   @Test(groups = {"regression"})
   @Description(
       "Searches for books by both title and author and verifies matching books are returned.")
-  public void shouldReturnBooksContainsTitleAndAuthor() {
+  public void testShouldReturnBooksContainsTitleAndAuthor() {
     RestAssured.given()
         .queryParam("title", "Book Title")
         .queryParam("author", "book author")
@@ -252,7 +252,7 @@ public class TS02_GetBook extends BaseTest {
   @Test(groups = {"regression"})
   @Description(
       "Searches for a single book by title and author and verifies only one book is returned.")
-  public void shouldReturnSingleBookWithTitleAndAuthor() {
+  public void testShouldReturnSingleBookWithTitleAndAuthor() {
     RestAssured.given()
         .queryParam("title", "get api test book title 10")
         .queryParam("author", "author 10")
@@ -278,7 +278,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should return 404 when book search is without author and title. */
   @Test(groups = {"negative", "regression"})
   @Description("Attempts to search for books without author and title and expects a 400 error.")
-  public void shouldReturn404WhenBookSearchWithoutAuthorAndTitle() {
+  public void testShouldReturn404WhenBookSearchWithoutAuthorAndTitle() {
     RestAssured.given()
         .when()
         .get("/search")
@@ -292,7 +292,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should return no books when book with title and author does not exist. */
   @Test(groups = {"negative", "regression"})
   @Description("Searches for a book with a non-existent title and author and expects a 404 error.")
-  public void shouldReturnNoBooksWhenBookWithTitleAndAuthorNotExists() {
+  public void testShouldReturnNoBooksWhenBookWithTitleAndAuthorNotExists() {
     RestAssured.given()
         .queryParam("title", "Get API Test Book Title 1")
         .queryParam("author", "Get API Test Book Author 2")
@@ -306,7 +306,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should return no books when book with author does not exist. */
   @Test(groups = {"negative", "regression"})
   @Description("Searches for a book with a non-existent author and expects a 404 error.")
-  public void shouldReturnNoBooksWhenBookWithAuthorNotExists() {
+  public void testShouldReturnNoBooksWhenBookWithAuthorNotExists() {
     RestAssured.given()
         .queryParam("author", "Get API Test Book Author 222222")
         .when()
@@ -319,7 +319,7 @@ public class TS02_GetBook extends BaseTest {
   /** Should return no books when book with title does not exist. */
   @Test(groups = {"negative", "regression"})
   @Description("Searches for a book with a non-existent title and expects a 404 error.")
-  public void shouldReturnNoBooksWhenBookWithTitleNotExists() {
+  public void testShouldReturnNoBooksWhenBookWithTitleNotExists() {
     RestAssured.given()
         .queryParam("title", "Get API Test Book Title 11111")
         .when()

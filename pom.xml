@@ -66,17 +66,17 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${surefire.version}</version>
 				<configuration>
+					<reportsDirectory>${project.basedir}/test-results</reportsDirectory>
 					<suiteXmlFiles>
 						<suiteXmlFile>testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
 					<systemPropertyVariables>
-						<AMADEUS_TEST_SECRET>${env.AMADEUS_TEST_SECRET}</AMADEUS_TEST_SECRET>
 						<allure.results.directory>${project.basedir}/test-results/allure-results</allure.results.directory>
 					</systemPropertyVariables>
 					<properties>
 						<property>
 							<name>listener</name>
-							<value>testUtils.AnnotationTransformer</value>
+							<value>testUtils.AnnotationTransformer, testUtils.TestResultsReporter</value>
 						</property>
 					</properties>
 				</configuration>

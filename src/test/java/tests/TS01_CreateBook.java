@@ -24,7 +24,7 @@ public class TS01_CreateBook extends BaseTest {
   /** Should create a book when title and author are valid. */
   @Test(groups = {"smoke", "regression"})
   @Description("Creates a book with valid title and author and verifies the book is created.")
-  public void shouldCreateBookWhenTitleAndAuthorAreValid() {
+  public void testShouldCreateBookWhenTitleAndAuthorAreValid() {
     Book book = new Book("Rest API Automation", "John Ferd");
     Book responseBook =
         RestAssured.given()
@@ -45,9 +45,11 @@ public class TS01_CreateBook extends BaseTest {
   }
 
   /** Should reject duplicate book creation. */
-  @Test(groups = {"negative", "regression"}, dependsOnMethods = "shouldCreateBookWhenTitleAndAuthorAreValid")
+  @Test(
+      groups = {"negative", "regression"},
+      dependsOnMethods = "testShouldCreateBookWhenTitleAndAuthorAreValid")
   @Description("Attempts to create a duplicate book and expects a 409 Conflict error.")
-  public void shouldRejectDuplicateBookCreation() {
+  public void testShouldRejectDuplicateBookCreation() {
     Book book = new Book("Rest API Automation", "John Ferd");
     RestAssured.given()
         .auth()
@@ -66,7 +68,7 @@ public class TS01_CreateBook extends BaseTest {
   /** Should create a book using JsonStringify when title and author are valid. */
   @Test(groups = {"regression"})
   @Description("Creates a book using JsonStringify and verifies the book is created.")
-  public void shouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid() {
+  public void testShouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid() {
     Book book = new Book("Quick Start and Build API using Nodejs express", "Nayeem John");
     String bookString = JsonUtils.JsonStringify(book);
     RestAssured.given()
@@ -84,10 +86,12 @@ public class TS01_CreateBook extends BaseTest {
   }
 
   /** Should create a book when title is different for the same author. */
-  @Test(groups = {"regression"}, dependsOnMethods = "shouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid")
+  @Test(
+      groups = {"regression"},
+      dependsOnMethods = "testShouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid")
   @Description(
       "Creates a book with a different title for the same author and verifies the book is created.")
-  public void shouldCreateBookWhenTitleIsDifferentForSameAuthor() {
+  public void testShouldCreateBookWhenTitleIsDifferentForSameAuthor() {
     Book book = new Book("TestNG Annoation Introduction", "Nayeem John");
     String bookString = JsonUtils.JsonStringify(book);
     RestAssured.given()
@@ -105,10 +109,12 @@ public class TS01_CreateBook extends BaseTest {
   }
 
   /** Should create a book when author is different for the same book. */
-  @Test(groups = {"regression"}, dependsOnMethods = "shouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid")
+  @Test(
+      groups = {"regression"},
+      dependsOnMethods = "testShouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid")
   @Description(
       "Creates a book with a different author for the same title and verifies the book is created.")
-  public void shouldCreateBookWhenAuthorIsDifferentForSameBook() {
+  public void testShouldCreateBookWhenAuthorIsDifferentForSameBook() {
     Book book = new Book("TestNG Annoation Introduction", "David James");
     String bookString = JsonUtils.JsonStringify(book);
     RestAssured.given()
@@ -129,7 +135,7 @@ public class TS01_CreateBook extends BaseTest {
   @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to create a book without authentication and expects a 401 Unauthorized error.")
-  public void shouldReturn401WhenNoAuthTokenProvided() {
+  public void testShouldReturn401WhenNoAuthTokenProvided() {
     Book book = new Book("Rest API Automation", "John Ferd");
     RestAssured.given()
         .contentType(ContentType.JSON)
@@ -146,7 +152,7 @@ public class TS01_CreateBook extends BaseTest {
   @Description(
       "Attempts to create a book with missing title and author and expects a 400 Bad Request"
           + " error.")
-  public void shouldRejectBookWithMissingTitleAndAuthor() {
+  public void testShouldRejectBookWithMissingTitleAndAuthor() {
     Book book = new Book();
     RestAssured.given()
         .auth()
@@ -163,7 +169,7 @@ public class TS01_CreateBook extends BaseTest {
   /** Should reject book creation when title is missing. */
   @Test(groups = {"negative", "regression"})
   @Description("Attempts to create a book with missing title and expects a 400 Bad Request error.")
-  public void shouldRejectBookWhenTitleIsMissing() {
+  public void testShouldRejectBookWhenTitleIsMissing() {
     Book book = new Book();
     book.setAuthor("OnlyAuthor");
     RestAssured.given()
@@ -181,7 +187,7 @@ public class TS01_CreateBook extends BaseTest {
   /** Should reject book creation when author is missing. */
   @Test(groups = {"negative", "regression"})
   @Description("Attempts to create a book with missing author and expects a 400 Bad Request error.")
-  public void shouldRejectBookWhenAuthorIsMissing() {
+  public void testShouldRejectBookWhenAuthorIsMissing() {
     Book book = new Book();
     book.setTitle("OnlyTitle");
     RestAssured.given()
@@ -200,7 +206,7 @@ public class TS01_CreateBook extends BaseTest {
   @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to create a book with a client-provided ID and expects a 400 Bad Request error.")
-  public void shouldRejectBookCreationWithClientProvidedId() {
+  public void testShouldRejectBookCreationWithClientProvidedId() {
     Book book = new Book(123, "Rest API Automation", "John Ferd");
     RestAssured.given()
         .auth()

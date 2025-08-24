@@ -53,7 +53,7 @@ public class TS03_UpdateBook extends BaseTest {
   /** Should update the author of a book. */
   @Test(groups = {"smoke", "regression"})
   @Description("Updates the author of an existing book and verifies the change.")
-  public void shouldUpdateBookAuthor() {
+  public void testShouldUpdateBookAuthor() {
     RestAssured.given()
         .contentType(ContentType.JSON)
         .auth()
@@ -71,7 +71,7 @@ public class TS03_UpdateBook extends BaseTest {
   /** Should update the title of a book. */
   @Test(groups = {"smoke", "regression"})
   @Description("Updates the title of an existing book and verifies the change.")
-  public void shouldUpdateBookTitle() {
+  public void testShouldUpdateBookTitle() {
     RestAssured.given()
         .contentType(ContentType.JSON)
         .auth()
@@ -90,7 +90,7 @@ public class TS03_UpdateBook extends BaseTest {
   @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to update a book without authentication and expects a 401 Unauthorized error.")
-  public void shouldReturn401WhenNoAuthIsProvidedOnUpdateBook() {
+  public void testShouldReturn401WhenNoAuthIsProvidedOnUpdateBook() {
     RestAssured.given()
         .contentType(ContentType.JSON)
         .pathParam("bookId", bookId)
@@ -104,7 +104,7 @@ public class TS03_UpdateBook extends BaseTest {
   /** Should return 404 when book with ID does not exist. */
   @Test(groups = {"negative", "regression"})
   @Description("Attempts to update a non-existent book and expects a 404 Not Found error.")
-  public void shouldReturn404WhenBookWithIdIsNotExists() {
+  public void testShouldReturn404WhenBookWithIdIsNotExists() {
     RestAssured.given()
         .contentType(ContentType.JSON)
         .auth()
@@ -122,7 +122,7 @@ public class TS03_UpdateBook extends BaseTest {
   @Description(
       "Attempts to update a book with a mismatched ID in the request body and expects a 400 Bad"
           + " Request error.")
-  public void shouldReturn400WhenDifferentBookIdIsGivenInBody() {
+  public void testShouldReturn400WhenDifferentBookIdIsGivenInBody() {
     RestAssured.given()
         .contentType(ContentType.JSON)
         .auth()
@@ -141,7 +141,7 @@ public class TS03_UpdateBook extends BaseTest {
   @Description(
       "Updates a book when the same book ID is provided in the request body and verifies the"
           + " update.")
-  public void shouldUpdateBookWhenSameBookIdIsGivenInBody() {
+  public void testShouldUpdateBookWhenSameBookIdIsGivenInBody() {
     Book book = new Book(bookId, "Test PUT API Book Title 2", "Test PUT API Book Author Name 2");
     Book responseBook =
         RestAssured.given()

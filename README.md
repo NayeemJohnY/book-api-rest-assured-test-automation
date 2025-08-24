@@ -33,11 +33,14 @@ A comprehensive framework for automated API testing of a Book system.
 
 - **Node.js Book API**: RESTful API for books (CRUD, search, pagination, auth, rate limiting)
 - **Java Test Suite**: TestNG + RestAssured for automated API tests (Create, Get, Update, Delete)
+- **Test Groups**: Organized test execution with **smoke**, **regression**, and **negative** test groups for targeted testing strategies
+- **Parallel Execution**: Support for parallel test execution to reduce overall test execution time and improve CI/CD pipeline efficiency
 - **Retry Logic (retryRequest)**: Automatically retries API requests in configuration tests if a 429 (Too Many Requests) response is received, waiting for the server's `Retry-After` header or a default interval, up to a configurable max retry count.
 - **RetryAnalyzer**: TestNG retry analyzer that re-runs failed tests (specifically for HTTP 429) up to a set number of times, with logging and Allure step reporting for each retry attempt.
 - **Logger & Custom Logging**: Uses Log4j2 for detailed logging of test execution, including a custom RestAssured filter (`RestAssuredLogFilter`) that logs HTTP requests and responses for every API call, and attaches status codes and retry info to TestNG results for better traceability.
-- **Allure Reporting**: Beautiful, interactive test reports with step-by-step details and retry history.
-- **CI/CD Ready:** Includes a GitHub Actions workflow for automated test execution and reporting.
+- **Allure Reporting**: Comprehensive test reporting with Allure framework, providing detailed insights into test execution and results
+- **CI/CD Ready**: GitHub Actions workflow for automated test execution and reporting
+- **Test Results Recording**: Automated capture and tracking of test execution metrics with detailed reporting
 
 ---
 
@@ -55,32 +58,30 @@ A comprehensive framework for automated API testing of a Book system.
 - **Test Utils (testUtils/):**
   - **AnnotationTransformer.java**: Dynamically modifies TestNG annotations at runtime (e.g., to apply retry logic or listeners).
   - **RetryAnalyzer.java**: Implements TestNG's retry logic for flaky tests, especially for HTTP 429, with logging and Allure integration.
-  - **TestResultsLogListener.java**: TestNG listener that logs test execution events, results, and integrates with reporting tools.
+  - **TestResultLoggerListener.java**: TestNG listener that logs test execution events, results, and integrates with reporting tools.
   - **Assertion.java**: Custom assertion utility that extends TestNG assertions with Log4j2-powered logging, providing clear pass/fail messages in logs and reports.
   - **LoggingMatcher.java**: Integrates Hamcrest matchers with logging for expressive, traceable assertions, making test failures easy to diagnose.
+  - **TestResultsReporter.java**: Collects and exports test results to JSON
+  - **TestResultsRecords.java**: Data structures for test results JSON
 ---
 
 ## 📁 Project Structure
 
-
 ```
 book-api-rest-assured-test-automation/
-│
 │
 ├── .github/                                        # GitHub workflows and actions
 │   └── workflows/
 │       └── test-execution.yml                      # CI workflow for running tests
 ├── .gitignore                                      # Git ignore rules
 │
-│
-│
 ├── github-pages/                                   # Static site for documentation/demo
 │   ├── index.html
 │   └── style.css
 │
-├── pom.xml                                        # Maven build and dependencies
+├── pom.xml                                         # Maven build and dependencies
 │
-├── README.md                                      # Project documentation
+├── README.md                                       # Project documentation
 │
 ├── src/
 │   ├── main/
@@ -106,12 +107,16 @@ book-api-rest-assured-test-automation/
 │           └── testUtils/
 │               ├── AnnotationTransformer.java     # TestNG annotation helper
 │               ├── RetryAnalyzer.java             # Retry logic for flaky tests
-│               └── TestResultsLogListener.java    # TestNG result logger
+│               ├── TestResultLoggerListener.java  # TestNG result logger
+│               ├── Assertion.java                 # Custom assertions with logging
+│               ├── LoggingMatcher.java            # Hamcrest matcher with logging
+│               ├── TestResultsReporter.java       # Collects and exports test results to JSON
+│               └── TestResultsRecords.java        # Data structures for test results JSON
 │ 
 ├── test-results/                                  # Test output and logs
 │   ├── allure-results/                            # Allure results
 │   └── logs/
-│       └── libarary-books-api-test.log            # Test execution log
+│       └── books-api-test.log                     # Test execution log
 ├── testng.xml                                     # TestNG suite configuration
 ```
 
@@ -210,7 +215,17 @@ This will execute TestNG tests with the following groups:
 ---
 
 
+## 📝 Test Results JSON Reporting
+
+The framework includes a custom TestNG reporter (`TestResultsReporter`) that collects all test execution results and exports them into a structured JSON file (`test-results/test-results-report.json`).  
+- Each test method is mapped to a test case ID using a configuration file.
+- Supports both single and parameterized tests, capturing outcomes, durations, and parameters.
+- The JSON report can be integrated with external test management systems or CI/CD dashboards.
+
+See:  
+- [`TestResultsRecords.java`](src/test/java/testUtils/TestResultsRecords.java) — Defines the data structure for test results.
+- [`TestResultsReporter.java`](src/test/java/testUtils/TestResultsReporter.java) — Implements the logic for collecting and exporting results.
+
 <footer align="center">
   <a href="https://www.linkedin.com/in/nayeemjohny/" target="_blank">Connect with me on LinkedIn</a>
 </footer>
-

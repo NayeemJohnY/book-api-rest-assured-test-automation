@@ -54,7 +54,7 @@ public class TS04_DeleteBook extends BaseTest {
   @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to delete a book without authentication and expects a 401 Unauthorized error.")
-  public void shouldReturn401WhenNoAuthTokenProvidedOnDelete() {
+  public void testShouldReturn401WhenNoAuthTokenProvidedOnDelete() {
 
     RestAssured.given()
         .pathParam("bookId", bookId)
@@ -69,7 +69,7 @@ public class TS04_DeleteBook extends BaseTest {
   @Test(groups = {"negative", "regression"})
   @Description(
       "Attempts to delete a book with a user token (not admin) and expects a 403 Forbidden error.")
-  public void shouldReturn403WhenUserAuthTokenIsProvidedOnDelete() {
+  public void testShouldReturn403WhenUserAuthTokenIsProvidedOnDelete() {
     RestAssured.given()
         .auth()
         .oauth2(USER_AUTH_TOKEN)
@@ -85,7 +85,7 @@ public class TS04_DeleteBook extends BaseTest {
   @Test(groups = {"smoke", "regression"})
   @Description(
       "Deletes a book using a valid admin token and verifies successful deletion (204 No Content).")
-  public void shouldDeleteBookWhenBookIdIsValid() {
+  public void testShouldDeleteBookWhenBookIdIsValid() {
     RestAssured.given()
         .auth()
         .oauth2(USER_ADMIN_TOKEN)
@@ -99,11 +99,11 @@ public class TS04_DeleteBook extends BaseTest {
   /** Should return 404 when the book is already deleted or does not exist. */
   @Test(
       groups = {"negative", "regression"},
-      dependsOnMethods = "shouldDeleteBookWhenBookIdIsValid")
+      dependsOnMethods = "testShouldDeleteBookWhenBookIdIsValid")
   @Description(
       "Attempts to delete a book that is already deleted or does not exist and expects a 404 Not"
           + " Found error.")
-  public void shouldReturn404WhenBookIsAlreadyDeletedOrNotExists() {
+  public void testShouldReturn404WhenBookIsAlreadyDeletedOrNotExists() {
     RestAssured.given()
         .auth()
         .oauth2(USER_ADMIN_TOKEN)
