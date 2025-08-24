@@ -1,9 +1,10 @@
 /**
  * About test-results collection into a JSON:
- * 
- * This reporter collects all TestNG test execution results, maps them to test case IDs,
- * and exports the aggregated data into a structured JSON file (`test-results/test-results-report.json`).
- * The JSON includes test plan metadata, outcomes, durations, and iteration details for parameterized tests.
+ *
+ * <p>This reporter collects all TestNG test execution results, maps them to test case IDs, and
+ * exports the aggregated data into a structured JSON file
+ * (`test-results/test-results-report.json`). The JSON includes test plan metadata, outcomes,
+ * durations, and iteration details for parameterized tests.
  */
 package testUtils;
 
@@ -34,7 +35,7 @@ import utils.JsonUtils;
  * execution data and export it as JSON for integration with external test management systems and
  * CI/CD pipelines.
  *
- * <h3>Key Features:</h3>
+ * <p><b>Key Features:</b>
  *
  * <ul>
  *   <li>Maps test methods to test case IDs using a configuration file
@@ -44,7 +45,7 @@ import utils.JsonUtils;
  *   <li>Provides null safety and error handling
  * </ul>
  *
- * <h3>Configuration:</h3>
+ * <b>Configuration:</b>
  *
  * <p>The reporter expects a {@code test-plan-suite.json} file in the test resources directory with
  * the following structure:
@@ -61,7 +62,7 @@ import utils.JsonUtils;
  * }
  * }</pre>
  *
- * <h3>Output:</h3>
+ * <b>Output:</b>
  *
  * <p>Generates a JSON report at {@code test-results/test-results-report.json} containing test
  * execution summary and detailed results for each test case.
