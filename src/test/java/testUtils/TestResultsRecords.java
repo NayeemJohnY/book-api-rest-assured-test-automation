@@ -23,18 +23,20 @@ public class TestResultsRecords {
       String testPlanName, String testSuiteName, Map<String, TestCaseInfo> testCases) {}
 
   /** Represents a single test iteration result. */
-  public record TestIterationResult(int id, String outcome, String comment, Long durationInMs) {}
+  public record TestIterationResult(
+      int id, String outcome, String comment, Long durationInMs, String errorMessage) {}
 
   /** Represents the complete test result for a test case. */
   public record TestResult(
       String outcome,
       String comment,
       Long durationInMs,
+      String errorMessage,
       List<TestIterationResult> iterationDetails) {
 
     /** Constructor for single test execution (no iterations). */
-    public TestResult(String outcome, String comment, Long durationInMs) {
-      this(outcome, comment, durationInMs, List.of());
+    public TestResult(String outcome, String comment, Long durationInMs, String errorMessage) {
+      this(outcome, comment, durationInMs, errorMessage, List.of());
     }
 
     /** Creates a new TestResult with an additional iteration. */
@@ -50,8 +52,16 @@ public class TestResultsRecords {
       if ("Failed".equals(outcome) || "Failed".equals(iterationResult.outcome())) {
         newOutcome = "Failed";
       }
+      String newErrorMessage = errorMessage;
+      if (!iterationResult.errorMessage().isEmpty()) {
+        newErrorMessage =
+            "Iteration " + iterationResults.size() + ": " + iterationResult.errorMessage() + "\n";
+        if (!errorMessage.isEmpty()) {
+          newErrorMessage = errorMessage + "\n" + newErrorMessage;
+        }
+      }
 
-      return new TestResult(newOutcome, comment, newDuration, iterationResults);
+      return new TestResult(newOutcome, comment, newDuration, newErrorMessage, iterationResults);
     }
   }
 

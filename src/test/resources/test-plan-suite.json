@@ -1,123 +1,123 @@
 {
     "testPlanName": "Automation Test Plan",
-    "testSuiteName": "Book API Automation Test Suite",
+    "testSuiteName": "Book API RestAssured Automation Test Suite",
     "testCases": {
-        "testShouldNotReturnBookWhenBookIdIsInvalidString": {
-            "testCaseId": "TC-001"
-        },
         "testShouldCreateBookWhenTitleAndAuthorAreValid": {
-            "testCaseId": "TC-002"
-        },
-        "testShouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid": {
-            "testCaseId": "TC-003"
-        },
-        "testShouldReturn400WhenDifferentBookIdIsGivenInBody": {
-            "testCaseId": "TC-004"
-        },
-        "testShouldCreateBookWhenAuthorIsDifferentForSameBook": {
-            "testCaseId": "TC-005"
-        },
-        "testShouldRejectBookWhenAuthorIsMissing": {
-            "testCaseId": "TC-006"
-        },
-        "testShouldReturnSingleBookWithTitleAndAuthor": {
-            "testCaseId": "TC-007"
-        },
-        "testShouldReturnBooksContainsTitle": {
-            "testCaseId": "TC-008"
-        },
-        "testShouldReturn403WhenUserAuthTokenIsProvidedOnDelete": {
-            "testCaseId": "TC-009"
-        },
-        "testShouldReturnBooksByLimitAndPage": {
-            "testCaseId": "TC-010"
-        },
-        "testShouldRejectBookWithMissingTitleAndAuthor": {
-            "testCaseId": "TC-011"
-        },
-        "testShouldReturnNoBooksWhenBookWithTitleAndAuthorNotExists": {
-            "testCaseId": "TC-012"
-        },
-        "testShouldRejectBookWhenTitleIsMissing": {
-            "testCaseId": "TC-013"
-        },
-        "testShouldReturnSingleBookByID": {
-            "testCaseId": "TC-014"
-        },
-        "testShouldReturn401WhenNoAuthTokenProvided": {
-            "testCaseId": "TC-015"
-        },
-        "testShouldUpdateBookTitle": {
-            "testCaseId": "TC-016"
-        },
-        "testShouldReturnBooksByPageNumber": {
-            "testCaseId": "TC-017"
-        },
-        "testShouldReturnBooksForDefaultPage1": {
-            "testCaseId": "TC-018"
-        },
-        "testShouldUpdateBookWhenSameBookIdIsGivenInBody": {
-            "testCaseId": "TC-019"
-        },
-        "testShouldReturnBooksContainsTitleAndAuthor": {
-            "testCaseId": "TC-020"
-        },
-        "testShouldReturn404WhenBookWithIdIsNotExists": {
-            "testCaseId": "TC-021"
-        },
-        "testShouldReturnNoBooksWhenBookWithTitleNotExists": {
-            "testCaseId": "TC-022"
-        },
-        "testShouldCreateBookWhenTitleIsDifferentForSameAuthor": {
-            "testCaseId": "TC-023"
-        },
-        "testShouldRejectBookCreationWithClientProvidedId": {
-            "testCaseId": "TC-024"
-        },
-        "testShouldReturnBooksExcludingLastLimitOnNegativeLimit": {
-            "testCaseId": "TC-025"
+            "testCaseId": "13"
         },
         "testShouldRejectDuplicateBookCreation": {
-            "testCaseId": "TC-026"
+            "testCaseId": "14"
         },
-        "testShouldReturn401WhenNoAuthTokenProvidedOnDelete": {
-            "testCaseId": "TC-027"
+        "testShouldCreateBookWithJsonStringifyWhenTitleAndAuthorAreValid": {
+            "testCaseId": "15"
         },
-        "testShouldReturn404WhenBookSearchWithoutAuthorAndTitle": {
-            "testCaseId": "TC-028"
+        "testShouldCreateBookWhenTitleIsDifferentForSameAuthor": {
+            "testCaseId": "16"
         },
-        "testShouldReturn401WhenNoAuthIsProvidedOnUpdateBook": {
-            "testCaseId": "TC-029"
+        "testShouldCreateBookWhenAuthorIsDifferentForSameBook": {
+            "testCaseId": "17"
         },
-        "testShouldUpdateBookAuthor": {
-            "testCaseId": "TC-030"
+        "testShouldReturn401WhenNoAuthTokenProvided": {
+            "testCaseId": "18"
         },
-        "testShouldReturnNoBooksIfPageNumberIsNotInRange": {
-            "testCaseId": "TC-031"
+        "testShouldRejectBookWithMissingTitleAndAuthor": {
+            "testCaseId": "19"
         },
-        "testShouldReturnBooksContainsAuthor": {
-            "testCaseId": "TC-032"
+        "testShouldRejectBookWhenTitleIsMissing": {
+            "testCaseId": "20"
         },
-        "testShouldDeleteBookWhenBookIdIsValid": {
-            "testCaseId": "TC-033"
+        "testShouldRejectBookWhenAuthorIsMissing": {
+            "testCaseId": "21"
         },
-        "testShouldReturnAllBooksWhenBookIdIsEmpty": {
-            "testCaseId": "TC-034"
+        "testShouldRejectBookCreationWithClientProvidedId": {
+            "testCaseId": "22"
         },
-        "testShouldNotReturnBookWhenBookIdNotExists": {
-            "testCaseId": "TC-035"
+        "testShouldReturnBooksForDefaultPage1": {
+            "testCaseId": "23"
+        },
+        "testShouldReturnBooksByPageNumber": {
+            "testCaseId": "24"
         },
         "testShouldReturnBooksByLimit": {
-            "testCaseId": "TC-036"
+            "testCaseId": "25"
         },
-        "testShouldReturnNoBooksWhenBookWithAuthorNotExists": {
-            "testCaseId": "TC-037"
+        "testShouldReturnBooksByLimitAndPage": {
+            "testCaseId": "26"
         },
-        "testShouldReturn404WhenBookIsAlreadyDeletedOrNotExists": {
-            "testCaseId": "TC-038"
+        "testShouldReturnNoBooksIfPageNumberIsNotInRange": {
+            "testCaseId": "27"
         },
         "testShouldReturnNoBooksOnNegativePage": {
-            "testCaseId": "TC-039"
+            "testCaseId": "28"
+        },
+        "testShouldReturnBooksExcludingLastLimitOnNegativeLimit": {
+            "testCaseId": "29"
+        },
+        "testShouldReturnSingleBookByID": {
+            "testCaseId": "30"
+        },
+        "testShouldNotReturnBookWhenBookIdIsInvalidString": {
+            "testCaseId": "31"
+        },
+        "testShouldNotReturnBookWhenBookIdNotExists": {
+            "testCaseId": "32"
+        },
+        "testShouldReturnAllBooksWhenBookIdIsEmpty": {
+            "testCaseId": "33"
+        },
+        "testShouldReturnBooksContainsAuthor": {
+            "testCaseId": "34"
+        },
+        "testShouldReturnBooksContainsTitle": {
+            "testCaseId": "35"
+        },
+        "testShouldReturnBooksContainsTitleAndAuthor": {
+            "testCaseId": "36"
+        },
+        "testShouldReturnSingleBookWithTitleAndAuthor": {
+            "testCaseId": "37"
+        },
+        "testShouldReturn404WhenBookSearchWithoutAuthorAndTitle": {
+            "testCaseId": "38"
+        },
+        "testShouldReturnNoBooksWhenBookWithTitleAndAuthorNotExists": {
+            "testCaseId": "39"
+        },
+        "testShouldReturnNoBooksWhenBookWithAuthorNotExists": {
+            "testCaseId": "40"
+        },
+        "testShouldReturnNoBooksWhenBookWithTitleNotExists": {
+            "testCaseId": "41"
+        },
+        "testShouldUpdateBookAuthor": {
+            "testCaseId": "42"
+        },
+        "testShouldUpdateBookTitle": {
+            "testCaseId": "43"
+        },
+        "testShouldReturn401WhenNoAuthIsProvidedOnUpdateBook": {
+            "testCaseId": "44"
+        },
+        "testShouldReturn404WhenBookWithIdIsNotExists": {
+            "testCaseId": "45"
+        },
+        "testShouldReturn400WhenDifferentBookIdIsGivenInBody": {
+            "testCaseId": "46"
+        },
+        "testShouldUpdateBookWhenSameBookIdIsGivenInBody": {
+            "testCaseId": "47"
+        },
+        "testShouldReturn401WhenNoAuthTokenProvidedOnDelete": {
+            "testCaseId": "48"
+        },
+        "testShouldReturn403WhenUserAuthTokenIsProvidedOnDelete": {
+            "testCaseId": "49"
+        },
+        "testShouldDeleteBookWhenBookIdIsValid": {
+            "testCaseId": "50"
+        },
+        "testShouldReturn404WhenBookIsAlreadyDeletedOrNotExists": {
+            "testCaseId": "51"
         }
     }
 }

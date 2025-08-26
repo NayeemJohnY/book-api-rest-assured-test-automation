@@ -238,8 +238,13 @@ public class TestResultsReporter implements IReporter {
       TestCaseInfo testCaseInfo = testCasesMap.get(testName);
       String testCaseId = testCaseInfo != null ? testCaseInfo.testCaseId() : "Unknown";
       String testParams = getParametersAsString(testResult.getParameters());
-
-      String comment = "Test Name: " + testName;
+      String comment = "Automated Test Name: " + testName;
+      String errorMessage = "";
+      Throwable throwable = testResult.getThrowable();
+      if (throwable != null) {
+        errorMessage = "Exception : " + throwable.getClass().getSimpleName();
+        errorMessage += " => Message : " + throwable.getMessage();
+      }
 
       // Handle parameterized tests (tests with parameters)
       if (!testParams.isEmpty()) {
@@ -247,8 +252,9 @@ public class TestResultsReporter implements IReporter {
             new TestIterationResult(
                 getNextIterationId(testCaseId),
                 outcome,
-                "Test Parameters: " + testParams,
-                durationInMs);
+                "Automated Test Parameters: " + testParams,
+                durationInMs,
+                errorMessage);
 
         TestResult existingResult = testResultsMap.get(testCaseId);
         if (existingResult != null) {
@@ -256,13 +262,18 @@ public class TestResultsReporter implements IReporter {
           testResultsMap.put(testCaseId, existingResult.withIterationResult(iterationResult));
         } else {
           // First iteration for this test case
+          if (!errorMessage.isEmpty()) {
+            errorMessage = "Iteration 1: " + errorMessage + "\n";
+          }
           TestResult newResult =
-              new TestResult(outcome, comment, durationInMs, List.of(iterationResult));
+              new TestResult(
+                  outcome, comment, durationInMs, errorMessage, List.of(iterationResult));
           testResultsMap.put(testCaseId, newResult);
         }
       } else {
         // Handle simple tests (no parameters)
-        TestResult newResult = new TestResult(outcome, comment, durationInMs, List.of());
+        TestResult newResult =
+            new TestResult(outcome, comment, durationInMs, errorMessage, List.of());
         testResultsMap.put(testCaseId, newResult);
       }
     }

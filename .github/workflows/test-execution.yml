@@ -3,10 +3,6 @@ name: Test Execution and Publish Report
 on:
   workflow_dispatch:
     inputs:
-      parallel:
-        description: Run Test in Parallel
-        type: boolean
-        default: false
       
       test_name:
         description: Test Method / Test class Name (e.g., MyTestClass#myTestMethod or MyTestClass1, MyTestClass2)
@@ -17,6 +13,11 @@ on:
         description: Test Group (e.g., smoke,regression or smoke)
         required: false
         type: string
+
+      parallel:
+        description: Run Test in Parallel
+        type: boolean
+        default: false
 
 permissions:
   id-token: write
@@ -97,6 +98,14 @@ jobs:
           name: test-results
           path: test-results
           retention-days: 3
+
+      - name: Post Test Results to Azure DevOps
+        uses: NayeemJohnY/actions/post-test-results-to-azure-devops@main
+        with:
+          test-results-json: test-results/test-results-report.json
+          azure-token: ${{ secrets.AZURE_TOKEN }}
+          org-url: ${{ secrets.AZURE_ORG_URL }}
+          project: ${{ secrets.AZURE_PROJECT }}
 
       - name: Build Maven Javadocs
         if: success() || failure()

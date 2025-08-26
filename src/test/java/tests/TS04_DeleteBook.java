@@ -101,8 +101,7 @@ public class TS04_DeleteBook extends BaseTest {
       groups = {"negative", "regression"},
       dependsOnMethods = "testShouldDeleteBookWhenBookIdIsValid")
   @Description(
-      "Attempts to delete a book that is already deleted or does not exist and expects a 404 Not"
-          + " Found error.")
+      "Attempts to delete a book that is already deleted or does not exist and expects a 404 Not Found error.")
   public void testShouldReturn404WhenBookIsAlreadyDeletedOrNotExists() {
     RestAssured.given()
         .auth()
