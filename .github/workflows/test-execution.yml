@@ -40,70 +40,70 @@ jobs:
       - name: Checkout the Repository to Runner
         uses: actions/checkout@v4
 
-      - name: Cache Maven dependencies
-        uses: actions/cache@v4
-        with:
-          path: /root/.m2/repository
-          key: maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: maven-
+      # - name: Cache Maven dependencies
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: /root/.m2/repository
+      #     key: maven-${{ hashFiles('**/pom.xml') }}
+      #     restore-keys: maven-
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 18
 
-      - name: Checkout Book API. Node.js App Repository
-        uses: actions/checkout@v4
-        with:
-          repository: NayeemJohnY/book-nodejs-app  
-          path: books-nodejs-app
+      # - name: Checkout Book API. Node.js App Repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: NayeemJohnY/book-nodejs-app  
+      #     path: books-nodejs-app
 
-      - name: Install dependencies
-        run: 
-          npm install --prefix books-nodejs-app
+      # - name: Install dependencies
+      #   run: 
+      #     npm install --prefix books-nodejs-app
 
-      - name: Start Book NodeJS App
-        run: |
-          npm run start-pm2 --prefix books-nodejs-app
-          sleep 20
+      # - name: Start Book NodeJS App
+      #   run: |
+      #     npm run start-pm2 --prefix books-nodejs-app
+      #     sleep 20
 
-      - name: Execute Test
-        shell: bash
-        run: |
-          EXTRA_PARAMS=""
+      # - name: Execute Test
+      #   shell: bash
+      #   run: |
+      #     EXTRA_PARAMS=""
       
-          if ${{ inputs.parallel }} ; then
-            EXTRA_PARAMS+=" -Dparallel=true";
-          fi
+      #     if ${{ inputs.parallel }} ; then
+      #       EXTRA_PARAMS+=" -Dparallel=true";
+      #     fi
 
-          if [ "${{ inputs.test_name }}" != "" ]; then
-            EXTRA_PARAMS+=' -Dtest=${{ inputs.test_name }}';
-          fi
+      #     if [ "${{ inputs.test_name }}" != "" ]; then
+      #       EXTRA_PARAMS+=' -Dtest=${{ inputs.test_name }}';
+      #     fi
 
-          if [ "${{ inputs.test_group }}" != "" ]; then
-            EXTRA_PARAMS+=' -Dgroups=${{ inputs.test_group }}';
-          fi
+      #     if [ "${{ inputs.test_group }}" != "" ]; then
+      #       EXTRA_PARAMS+=' -Dgroups=${{ inputs.test_group }}';
+      #     fi
 
-          echo "Running with: mvn clean test ${EXTRA_PARAMS}"
-          mvn clean test ${EXTRA_PARAMS}
+      #     echo "Running with: mvn clean test ${EXTRA_PARAMS}"
+      #     mvn clean test ${EXTRA_PARAMS}
 
-      - name: Stop Book NodeJS App
-        if: always()
-        run: npm run stop-pm2 --prefix books-nodejs-app
+      # - name: Stop Book NodeJS App
+      #   if: always()
+      #   run: npm run stop-pm2 --prefix books-nodejs-app
 
-      - name: Generate Allure Report
-        if: success() || failure()
-        uses: NayeemJohnY/actions/allure-report-with-history@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Generate Allure Report
+      #   if: success() || failure()
+      #   uses: NayeemJohnY/actions/allure-report-with-history@main
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Test Results
-        if: success() || failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: test-results
-          retention-days: 3
+      # - name: Upload Test Results
+      #   if: success() || failure()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: test-results
+      #     path: test-results
+      #     retention-days: 3
 
       - name: Post Test Results to Azure DevOps
         uses: NayeemJohnY/actions/post-test-results-to-azure-devops@main
@@ -113,17 +113,17 @@ jobs:
           org-url: ${{ secrets.AZURE_ORG_URL }}
           project: ${{ secrets.AZURE_PROJECT }}
 
-      - name: Build Maven Javadocs
-        if: success() || failure()
-        run: mvn javadoc:javadoc javadoc:test-javadoc
+      # - name: Build Maven Javadocs
+      #   if: success() || failure()
+      #   run: mvn javadoc:javadoc javadoc:test-javadoc
 
-      - name: Prepare GitHub Pages Content
-        if: ${{ (success() || failure()) && inputs.publish-report }}
-        uses: NayeemJohnY/actions/prepare-github-pages@main
-        with:
-         reports-dir: test-results/allure-report
-         javadoc-dir: target/reports
+      # - name: Prepare GitHub Pages Content
+      #   if: ${{ (success() || failure()) && inputs.publish-report }}
+      #   uses: NayeemJohnY/actions/prepare-github-pages@main
+      #   with:
+      #    reports-dir: test-results/allure-report
+      #    javadoc-dir: target/reports
 
-      - name: Deploy GitHub Pages
-        if: ${{ (success() || failure()) && inputs.publish-report }}
-        uses: NayeemJohnY/actions/deploy-github-pages-site@main
+      # - name: Deploy GitHub Pages
+      #   if: ${{ (success() || failure()) && inputs.publish-report }}
+      #   uses: NayeemJohnY/actions/deploy-github-pages-site@main
