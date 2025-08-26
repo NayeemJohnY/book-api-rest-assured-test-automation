@@ -33,7 +33,8 @@ permissions:
   contents: read
   pages: write
 
-env: APP_MAX_REQUESTS = ${{inputs.APP_MAX_REQUESTS}}
+env: 
+  APP_MAX_REQUESTS: ${{inputs.APP_MAX_REQUESTS}}
 
 jobs:
   test-execution:
@@ -111,6 +112,7 @@ jobs:
           retention-days: 3
 
       - name: Post Test Results to Azure DevOps
+        if: ${{ (success() || failure()) && inputs.publish-report }}
         uses: NayeemJohnY/actions/post-test-results-to-azure-devops@main
         with:
           test-results-json: test-results/test-results-report.json
@@ -119,7 +121,7 @@ jobs:
           project: ${{ secrets.AZURE_PROJECT }}
 
       - name: Build Maven Javadocs
-        if: success() || failure()
+        if: ${{ (success() || failure()) && inputs.publish-report }}
         run: mvn javadoc:javadoc javadoc:test-javadoc
 
       - name: Prepare GitHub Pages Content
