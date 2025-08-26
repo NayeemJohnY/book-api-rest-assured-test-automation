@@ -19,6 +19,12 @@ on:
         type: boolean
         default: false
 
+      publish-report:
+        description: Publish Allure Report, Javadoc and Azure Devops Test Results
+        type: boolean
+        default: true
+
+
 permissions:
   id-token: write
   contents: read
@@ -112,12 +118,12 @@ jobs:
         run: mvn javadoc:javadoc javadoc:test-javadoc
 
       - name: Prepare GitHub Pages Content
-        if: success() || failure()
+        if: ${{ (success() || failure()) && inputs.publish-report }}
         uses: NayeemJohnY/actions/prepare-github-pages@main
         with:
          reports-dir: test-results/allure-report
          javadoc-dir: target/reports
 
       - name: Deploy GitHub Pages
-        if: success() || failure()
+        if: ${{ (success() || failure()) && inputs.publish-report }}
         uses: NayeemJohnY/actions/deploy-github-pages-site@main
