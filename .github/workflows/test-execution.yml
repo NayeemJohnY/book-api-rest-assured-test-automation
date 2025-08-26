@@ -32,7 +32,7 @@ permissions:
 
 jobs:
   test-execution:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: maven:3.9.6-eclipse-temurin-21
 
