@@ -89,14 +89,19 @@
         <ul>
             <li><b>Node.js Book API:</b> RESTful API for books (CRUD, search, pagination, auth, rate limiting)</li>
             <li><b>Java Test Suite:</b> TestNG + RestAssured for automated API tests (Create, Get, Update, Delete)</li>
-            <li><b>Test Groups:</b> Organized test execution with <strong>smoke</strong>, <strong>regression</strong>, and <strong>negative</strong> test groups for targeted testing strategies</li>
-            <li><b>Parallel Execution:</b> Support for parallel test execution to reduce overall test execution time and improve CI/CD pipeline efficiency</li>
-            <li><b>Retry Logic (retryRequest):</b> Retries API requests on HTTP 429, using Retry-After header or default interval</li>
+            <li><b>Test Groups:</b> Organized test execution with <strong>smoke</strong>, <strong>regression</strong>,
+                and <strong>negative</strong> test groups for targeted testing strategies</li>
+            <li><b>Parallel Execution:</b> Support for parallel test execution to reduce overall test execution time and
+                improve CI/CD pipeline efficiency</li>
+            <li><b>Retry Logic (retryRequest):</b> Retries API requests on HTTP 429, using Retry-After header or default
+                interval</li>
             <li><b>RetryAnalyzer:</b> TestNG retry analyzer for HTTP 429, with logging and Allure step reporting</li>
             <li><b>Logger & Custom Logging:</b> Log4j2 and RestAssuredLogFilter for detailed HTTP and test logs</li>
-            <li><b>Allure Reporting:</b> Comprehensive test reporting with Allure framework, providing detailed insights into test execution and results</li>
+            <li><b>Allure Reporting:</b> Comprehensive test reporting with Allure framework, providing detailed insights
+                into test execution and results</li>
             <li><b>CI/CD Ready:</b> GitHub Actions workflow for automated test execution and reporting</li>
-            <li><b>Test Results JSON Collection:</b> Exports TestNG results to structured JSON with test outcomes, durations, and iteration details.</li>
+            <li><b>Test Results JSON Collection:</b> Exports TestNG results to structured JSON with test outcomes,
+                durations, and iteration details.</li>
         </ul>
 
         <h2>Key Classes & Utilities</h2>
@@ -206,8 +211,9 @@
 
         <h2>🚀 CI/CD & Automation</h2>
         <div>
-            <p><strong>GitHub Actions Workflow:</strong> Sophisticated CI/CD pipeline with flexible test execution and comprehensive reporting capabilities.</p>
-        
+            <p><strong>GitHub Actions Workflow:</strong> Sophisticated CI/CD pipeline with flexible test execution and
+                comprehensive reporting capabilities.</p>
+
             <ul>
                 <li><b>Flexible Test Selection:</b> Run specific methods, classes, or test groups</li>
                 <li><b>Environment Management:</b> Auto-configures Java 21+ and Node.js environments</li>
@@ -219,13 +225,64 @@
 
             <div style="margin-top:12px;padding:12px 12px;background:#e3f2fd;border-radius:4px;text-align:center;">
                 <i class="fa-brands fa-github" style="margin-right:6px;color:#333;"></i>
-                <a href="https://github.com/NayeemJohnY/book-api-rest-assured-test-automation/actions" target="_blank" style="color:#1976d2;text-decoration:none;font-weight:500;">View Workflow Runs</a>
+                <a href="https://github.com/NayeemJohnY/book-api-rest-assured-test-automation/actions" target="_blank"
+                    style="color:#1976d2;text-decoration:none;font-weight:500;">View Workflow Runs</a>
                 <span style="margin:0 8px;color:#666;">|</span>
                 <i class="fa-solid fa-rocket" style="margin-right:6px;color:#333;"></i>
-                <a href="https://github.com/NayeemJohnY/book-api-rest-assured-test-automation/actions/workflows/test-execution.yml" target="_blank" style="color:#1976d2;text-decoration:none;font-weight:500;">Manual Dispatch</a>
+                <a href="https://github.com/NayeemJohnY/book-api-rest-assured-test-automation/actions/workflows/test-execution.yml"
+                    target="_blank" style="color:#1976d2;text-decoration:none;font-weight:500;">Manual Dispatch</a>
             </div>
         </div>
 
+        <div class="ado-images-container">
+            <h2>Azure DevOps Test Plan Integration</h2>
+            <p>Below are sample screenshots showing how test results are posted and visualized in Azure DevOps Test
+                Plans:</p>
+            <div class="ado-images-grid">
+                <figure>
+                    <img src="images/ado-progress-report.png" alt="ADO Progress Report" class="ado-img"
+                        onclick="enlargeImage(this)">
+                    <figcaption>Progress Report</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/ado-run-summary.png" alt="ADO Run Summary" class="ado-img"
+                        onclick="enlargeImage(this)">
+                    <figcaption>Run Summary</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/ado-test-result-summary.png" alt="ADO Test Result Summary" class="ado-img"
+                        onclick="enlargeImage(this)">
+                    <figcaption>Test Result Summary</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/ado-test-results.png" alt="ADO Test Results" class="ado-img"
+                        onclick="enlargeImage(this)">
+                    <figcaption>Test Results in Azure DevOps</figcaption>
+                </figure>
+            </div>
+            <div id="adoModal" class="ado-modal" onclick="closeModal(event)">
+                <div class="ado-modal-content">
+                    <div class="ado-modal-image-container">
+                        <img id="adoModalImg" src="" alt="Enlarged Azure DevOps Screenshot">
+                    </div>
+                    <button class="ado-modal-close" onclick="closeModal(event)">Close</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            function enlargeImage(img) {
+                var modal = document.getElementById('adoModal');
+                var modalImg = document.getElementById('adoModalImg');
+                modalImg.src = img.src;
+                modal.classList.add('active');
+            }
+            function closeModal(event) {
+                var modal = document.getElementById('adoModal');
+                if (event.target.classList.contains('ado-modal') || event.target.classList.contains('ado-modal-close')) {
+                    modal.classList.remove('active');
+                }
+            }
+        </script>
         <footer
             style="width:100%;text-align:center;margin-top:40px;padding:18px 0 8px 0;color:#b0b0b0;font-size:1em;letter-spacing:0.5px;border-top:1.5px solid rgba(79,195,247,0.18);box-shadow:0 -2px 12px 0 rgba(79,195,247,0.08);">
             <a href="https://www.linkedin.com/in/nayeemjohny/" target="_blank"
