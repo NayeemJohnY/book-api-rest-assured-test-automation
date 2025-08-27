@@ -4,15 +4,16 @@ A comprehensive framework for automated API testing of a Book system.
 
 [![Test Execution and Publish Report](https://github.com/NayeemJohnY/book-api-rest-assured-test-automation/actions/workflows/test-execution.yml/badge.svg)](https://github.com/NayeemJohnY/book-api-rest-assured-test-automation/actions/workflows/test-execution.yml)
 
-## Quick Links
+## 🔗 Quick Links
 
-:link: [Framework Docs](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/index.html)
-
-:link: [Allure Report](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/allure-report/index.html)
-
-:link: [Java APIDocs](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/javadocs/apidocs/index.html)
-
-:link: [Test APIDocs](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/javadocs/testapidocs/index.html)
+| Resource | Description | Link |
+|----------|-------------|------|
+| 📋 **Framework Docs** | Complete documentation & project overview | [View Docs](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/index.html) |
+| 📊 **Allure Report** | Interactive test execution dashboard | [View Report](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/allure-report/index.html) |
+| 📄 **Test Results JSON** | Structured test data for integrations | [View JSON](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/test-results-report.json) |
+| 📖 **Java APIDocs** | Main code API documentation | [View Docs](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/javadocs/apidocs/index.html) |
+| 🧪 **Test APIDocs** | Test code API documentation | [View Docs](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/javadocs/testapidocs/index.html) |
+| 🚀 **CI/CD Pipeline** | GitHub Actions workflow runs | [View Actions](https://github.com/nayeemjohny/book-api-rest-assured-test-automation/actions) |
 
 ---
 ## Tech Stack
@@ -40,7 +41,7 @@ A comprehensive framework for automated API testing of a Book system.
 - **Logger & Custom Logging**: Uses Log4j2 for detailed logging of test execution, including a custom RestAssured filter (`RestAssuredLogFilter`) that logs HTTP requests and responses for every API call, and attaches status codes and retry info to TestNG results for better traceability.
 - **Allure Reporting**: Comprehensive test reporting with Allure framework, providing detailed insights into test execution and results
 - **CI/CD Ready**: GitHub Actions workflow for automated test execution and reporting
-- **Test Results Recording**: Automated capture and tracking of test execution metrics with detailed reporting
+- **Test Results JSON Collection**: Collects all TestNG test execution results, maps them to test case IDs, and exports the aggregated data into a structured JSON file (`test-results/test-results-report.json`). The JSON includes test plan metadata, outcomes, durations, and iteration details for parameterized tests. See **TestResultsRecords.java** and **TestResultsReporter.java**.
 
 ---
 
@@ -186,15 +187,27 @@ This will execute TestNG tests with the following groups:
 | `regression` | All tests for comprehensive coverage | All positive and negative scenarios               |
 | `negative`   | Error handling and validation        | Invalid data, unauthorized access, missing fields |
 
-## 📊 Generate Allure Report
+## 📊 Test Reports & Documentation
 
-1. After running tests, generate the Allure report:
-   ```
-   allure generate test-results/allure-results --clean -o test-results/allure-report
-   allure open test-results/allure-report
-   ```
-   (Requires Allure CLI installed and in your PATH.)
+This framework provides comprehensive reporting through multiple channels:
 
+### 📋 Test Results JSON Report
+- **Live Report**: [View Test Results JSON](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/test-results-report.json)
+- **Format**: Structured JSON with test outcomes, iterations, and detailed execution data
+- **Features**: Test case mapping, parameterized test tracking, retry analysis, error categorization
+- **Integration**: Perfect for external test management systems and CI/CD dashboards
+- **Implementation**: See [`TestResultsReporter.java`](src/test/java/testUtils/TestResultsReporter.java) and [`TestResultsRecords.java`](src/test/java/testUtils/TestResultsRecords.java)
+
+### 📊 Allure Interactive Dashboard  
+- **Live Report**: [View Allure Dashboard](https://nayeemjohny.github.io/book-api-rest-assured-test-automation/allure-report/index.html)
+- **Features**: Historical trends, test categorization, failure analysis, execution timeline
+- **Benefits**: Visual insights, drill-down capabilities, test history tracking
+- **How to Generate Locally**:
+  ```bash
+  allure generate test-results/allure-results --clean -o test-results/allure-report
+  allure open test-results/allure-report
+  ```
+  (Requires Allure CLI installed and in your PATH.)
 ---
 
 ## 🔑 Authentication Tokens
@@ -215,16 +228,37 @@ This will execute TestNG tests with the following groups:
 ---
 
 
-## 📝 Test Results JSON Reporting
+##  GitHub Actions CI/CD
 
-The framework includes a custom TestNG reporter (`TestResultsReporter`) that collects all test execution results and exports them into a structured JSON file (`test-results/test-results-report.json`).  
-- Each test method is mapped to a test case ID using a configuration file.
-- Supports both single and parameterized tests, capturing outcomes, durations, and parameters.
-- The JSON report can be integrated with external test management systems or CI/CD dashboards.
+The framework includes a sophisticated GitHub Actions workflow (`test-execution.yml`) that provides automated testing with flexible configuration and comprehensive reporting.
 
-See:  
-- [`TestResultsRecords.java`](src/test/java/testUtils/TestResultsRecords.java) — Defines the data structure for test results.
-- [`TestResultsReporter.java`](src/test/java/testUtils/TestResultsReporter.java) — Implements the logic for collecting and exporting results.
+### 🚀 **Workflow Capabilities**
+- **Environment Setup**: Automatically configures Java 21+ and Node.js environments
+- **API Management**: Deploys and manages the Node.js Book API during test execution
+- **Flexible Test Execution**: Support for specific test methods, classes, or groups
+- **Parallel Processing**: Configurable parallel execution for faster feedback cycles
+
+### ⚙️ **Configurable Parameters** (Manual Dispatch)
+| Parameter | Description | Example Values |
+|-----------|-------------|----------------|
+| `test_name` | Specific test method/class | `CreateBookTest#testCreateValidBook` |
+| `test_group` | Test group filtering | `smoke`, `regression`, `negative` |
+| `APP_MAX_REQUESTS` | API rate limiting config | `100` (requests per minute) |
+| `parallel` | Enable parallel execution | `true`/`false` |
+| `publish_report` | Control report publishing | `true`/`false` |
+
+### 📊 **Multi-Platform Reporting**
+The workflow automatically generates and publishes:
+- **📊 Allure Reports**: Historical test execution with trend analysis
+- **📖 JavaDoc**: API documentation for main and test code  
+- **📄 JSON Results**: Structured test data for external integrations
+- **� Azure DevOps**: Test results posted to Azure Test Plans
+- **🌐 GitHub Pages**: Live deployment of all reports and documentation
+
+### � **Quick Access**
+- [🚀 View Workflow Runs](https://github.com/NayeemJohnY/book-api-rest-assured-test-automation/actions)
+- [⚡ Manual Dispatch](https://github.com/NayeemJohnY/book-api-rest-assured-test-automation/actions/workflows/test-execution.yml)
+- [📋 Workflow Configuration](/.github/workflows/test-execution.yml)
 
 <footer align="center">
   <a href="https://www.linkedin.com/in/nayeemjohny/" target="_blank">Connect with me on LinkedIn</a>

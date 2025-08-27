@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hamcrest.Matchers;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pojos.Book;
 
@@ -156,16 +157,23 @@ public class TS02_GetBook extends BaseTest {
   }
 
   /** Should not return a book when book ID is an invalid string. */
-  @Test(groups = {"negative", "regression"})
+  @Test(
+      groups = {"negative", "regression"},
+      dataProvider = "InvalidBookID")
   @Description("Attempts to retrieve a book with an invalid string ID and expects a 404 error.")
-  public void testShouldNotReturnBookWhenBookIdIsInvalidString() {
+  public void testShouldNotReturnBookWhenBookIdIsInvalidString(Object inValidBookId) {
     RestAssured.given()
-        .pathParam("bookId", "invalid-book-id")
+        .pathParam("bookId", inValidBookId)
         .when()
         .get("/{bookId}")
         .then()
         .statusCode(404)
         .body("error", log(logger, Matchers.equalTo("Book not found")));
+  }
+
+  @DataProvider(name = "InvalidBookID")
+  public Object[] getInvalidBookID() {
+    return new Object[] {111111111, "ZZZZZZZZZZZZZZZZZ", "122222222", "#$%^&*&^%", 8};
   }
 
   /** Should not return a book when book ID does not exist. */

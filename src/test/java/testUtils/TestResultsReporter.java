@@ -89,6 +89,9 @@ public class TestResultsReporter implements IReporter {
   /** Map storing aggregated test results by test case ID. */
   private static Map<String, TestResult> testResultsMap = new HashMap<>();
 
+  /** Map storing test parameters to their corresponding iteration ID. */
+  private static Map<String, Integer> testParamsIterationIdMap = new HashMap<>();
+
   /**
    * Generates the test results report by processing all test suites and their results.
    *
@@ -122,9 +125,9 @@ public class TestResultsReporter implements IReporter {
       Map<String, ISuiteResult> suiteResults = suite.getResults();
       for (ISuiteResult suiteResult : suiteResults.values()) {
         ITestContext testContext = suiteResult.getTestContext();
-        collectTestResults(testContext.getPassedTests());
-        collectTestResults(testContext.getFailedTests());
         collectTestResults(testContext.getSkippedTests());
+        collectTestResults(testContext.getFailedTests());
+        collectTestResults(testContext.getPassedTests());
       }
     }
 
@@ -186,8 +189,8 @@ public class TestResultsReporter implements IReporter {
     return switch (status) {
       case ITestResult.SUCCESS -> "Passed";
       case ITestResult.FAILURE -> "Failed";
-      case ITestResult.SKIP -> "Skipped";
-      default -> "Unknown";
+      case ITestResult.SKIP -> "Error";
+      default -> "Unspecified";
     };
   }
 
@@ -208,75 +211,102 @@ public class TestResultsReporter implements IReporter {
   /**
    * Processes and collects test results from a TestNG result map.
    *
-   * <p>This method handles both single execution tests and parameterized tests with multiple
-   * iterations. For parameterized tests, it creates individual iteration records while maintaining
-   * an overall test result summary.
-   *
-   * <h4>Processing Logic:</h4>
-   *
-   * <ul>
-   *   <li>Calculates execution duration (endTime - startTime)
-   *   <li>Maps test method names to test case IDs using configuration
-   *   <li>For parameterized tests: creates iteration records with sequential IDs
-   *   <li>For simple tests: creates single result records
-   *   <li>Aggregates results by test case ID for reporting
-   * </ul>
+   * <p>This method treats all test executions as iterations, whether they are parameterized or
+   * simple tests. Each test execution creates an iteration record.
    *
    * @param resultMap TestNG result map containing test execution results
-   * @see IResultMap
-   * @see TestIterationResult
-   * @see TestResult
    */
   public void collectTestResults(IResultMap resultMap) {
     for (ITestResult testResult : resultMap.getAllResults()) {
-      // Extract basic test information
-      String outcome = getOutcomeString(testResult.getStatus());
-      Long durationInMs = testResult.getEndMillis() - testResult.getStartMillis();
       String testName = testResult.getMethod().getMethodName();
-
-      // Map test method to test case ID
-      TestCaseInfo testCaseInfo = testCasesMap.get(testName);
-      String testCaseId = testCaseInfo != null ? testCaseInfo.testCaseId() : "Unknown";
-      String testParams = getParametersAsString(testResult.getParameters());
+      String testCaseId = getTestCaseId(testName);
+      String outcome = getOutcomeString(testResult.getStatus());
+      long duration = testResult.getEndMillis() - testResult.getStartMillis();
+      String parameters = getParametersAsString(testResult.getParameters());
+      String errorMessage = getErrorMessage(testResult.getThrowable());
       String comment = "Automated Test Name: " + testName;
-      String errorMessage = "";
-      Throwable throwable = testResult.getThrowable();
-      if (throwable != null) {
-        errorMessage = "Exception : " + throwable.getClass().getSimpleName();
-        errorMessage += " => Message : " + throwable.getMessage();
+
+      handleTestIteration(testCaseId, outcome, duration, parameters, errorMessage, comment);
+    }
+  }
+
+  /** Handles all test executions as iterations (unified approach). */
+  private void handleTestIteration(
+      String testCaseId,
+      String outcome,
+      long duration,
+      String parameters,
+      String errorMessage,
+      String comment) {
+    int iterationId = getNextIterationId(testCaseId);
+    String iterationComment = buildIterationComment(parameters, testCaseId);
+
+    TestIterationResult iteration =
+        new TestIterationResult(iterationId, outcome, iterationComment, duration, errorMessage);
+
+    TestResult existingResult = testResultsMap.get(testCaseId);
+
+    // Track parameters for retries (if any)
+    if (!parameters.isEmpty()) {
+      testParamsIterationIdMap.put(parameters, iterationId);
+    }
+
+    if (existingResult != null) {
+      // Add iteration to existing result
+      testResultsMap.put(testCaseId, existingResult.withIterationResult(iteration));
+    } else {
+      // Create new result with first iteration
+      String initialError = errorMessage.isEmpty() ? "" : "Iteration 1: " + errorMessage + "\n";
+      TestResult newResult =
+          new TestResult(outcome, comment, duration, initialError, List.of(iteration));
+      testResultsMap.put(testCaseId, newResult);
+    }
+  }
+
+  /** Builds iteration comment based on whether test has parameters or not. */
+  private String buildIterationComment(String parameters, String testCaseId) {
+    if (!parameters.isEmpty()) {
+      // Parameterized test
+      String comment = "DataDriven: Test Parameters: " + parameters;
+      if (testParamsIterationIdMap.containsKey(parameters)) {
+        comment =
+            "Retried Iteration " + testParamsIterationIdMap.get(parameters) + " -> " + comment;
       }
-
-      // Handle parameterized tests (tests with parameters)
-      if (!testParams.isEmpty()) {
-        TestIterationResult iterationResult =
-            new TestIterationResult(
-                getNextIterationId(testCaseId),
-                outcome,
-                "Automated Test Parameters: " + testParams,
-                durationInMs,
-                errorMessage);
-
-        TestResult existingResult = testResultsMap.get(testCaseId);
-        if (existingResult != null) {
-          // Add iteration to existing test result
-          testResultsMap.put(testCaseId, existingResult.withIterationResult(iterationResult));
-        } else {
-          // First iteration for this test case
-          if (!errorMessage.isEmpty()) {
-            errorMessage = "Iteration 1: " + errorMessage + "\n";
-          }
-          TestResult newResult =
-              new TestResult(
-                  outcome, comment, durationInMs, errorMessage, List.of(iterationResult));
-          testResultsMap.put(testCaseId, newResult);
-        }
+      return comment;
+    } else {
+      // Simple test (no parameters)
+      TestResult existingResult = testResultsMap.get(testCaseId);
+      if (existingResult != null && !existingResult.iterationDetails().isEmpty()) {
+        return "Retry Attempt";
       } else {
-        // Handle simple tests (no parameters)
-        TestResult newResult =
-            new TestResult(outcome, comment, durationInMs, errorMessage, List.of());
-        testResultsMap.put(testCaseId, newResult);
+        return "Initial Attempt";
       }
     }
+  }
+
+  /**
+   * Returns the test case ID for a given test method name.
+   *
+   * @param testName the name of the test method
+   * @return the mapped test case ID, or "Unknown" if not found
+   */
+  private String getTestCaseId(String testName) {
+    TestCaseInfo testCaseInfo = testCasesMap.get(testName);
+    return testCaseInfo != null ? testCaseInfo.testCaseId() : "Unknown";
+  }
+
+  /**
+   * Returns a formatted error message for a test throwable.
+   *
+   * @param throwable the exception thrown during test execution
+   * @return formatted error message, or empty string if none
+   */
+  private String getErrorMessage(Throwable throwable) {
+    if (throwable == null) return "";
+    return "Exception : "
+        + throwable.getClass().getSimpleName()
+        + " => Message : "
+        + throwable.getMessage();
   }
 
   /**
@@ -308,7 +338,7 @@ public class TestResultsReporter implements IReporter {
    * <ul>
    *   <li>Test plan and suite metadata
    *   <li>Detailed test results by test case ID
-   *   <li>Iteration details for parameterized tests
+   *   <li>Iteration details for each test
    *   <li>Execution durations and outcomes
    * </ul>
    *

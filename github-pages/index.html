@@ -31,6 +31,10 @@
                 <i class="fa-solid fa-chart-line"></i>
                 Allure Report
             </a>
+            <a href="./test-results-report.json" class="nav-link">
+                <i class="fa-solid fa-file-code"></i>
+                Test Results JSON
+            </a>
             <a href="./javadocs/apidocs/index.html" class="nav-link">
                 <i class="fa-solid fa-code"></i>
                 Java APIDocs
@@ -92,7 +96,7 @@
             <li><b>Logger & Custom Logging:</b> Log4j2 and RestAssuredLogFilter for detailed HTTP and test logs</li>
             <li><b>Allure Reporting:</b> Comprehensive test reporting with Allure framework, providing detailed insights into test execution and results</li>
             <li><b>CI/CD Ready:</b> GitHub Actions workflow for automated test execution and reporting</li>
-            <li><b>Test Results JSON Collection:</b> Collects all TestNG test execution results, maps them to test case IDs, and exports the aggregated data into a structured JSON file (<code>test-results/test-results-report.json</code>). The JSON includes test plan metadata, outcomes, durations, and iteration details for parameterized tests. See <b>TestResultsRecords.java</b> and <b>TestResultsReporter.java</b>.</li>
+            <li><b>Test Results JSON Collection:</b> Exports TestNG results to structured JSON with test outcomes, durations, and iteration details.</li>
         </ul>
 
         <h2>Key Classes & Utilities</h2>
@@ -120,6 +124,8 @@
                         test failures easier to diagnose.</li>
                     <li><b>LoggingMatcher.java:</b> Custom Hamcrest matcher that logs assertion details, improving the
                         expressiveness and traceability of test assertions.</li>
+                    <li><b>TestResultsReporter.java:</b> Collects and exports test results to JSON</li>
+                    <li><b>TestResultsRecords.java:</b> Data structures for test results JSON</li>
                 </ul>
             </li>
         </ul>
@@ -197,6 +203,28 @@
                 </div>
             </div>
         </section>
+
+        <h2>🚀 CI/CD & Automation</h2>
+        <div>
+            <p><strong>GitHub Actions Workflow:</strong> Sophisticated CI/CD pipeline with flexible test execution and comprehensive reporting capabilities.</p>
+        
+            <ul>
+                <li><b>Flexible Test Selection:</b> Run specific methods, classes, or test groups</li>
+                <li><b>Environment Management:</b> Auto-configures Java 21+ and Node.js environments</li>
+                <li><b>Parallel Execution:</b> Toggle parallel test execution for faster feedback</li>
+                <li><b>API Integration:</b> Deploys and manages Book API during test execution</li>
+                <li><b>Multi-Format Reporting:</b> Allure, JavaDoc, JSON, and Azure DevOps Test Plans integration</li>
+                <li><b>GitHub Pages Deployment:</b> Automated publishing of all reports and documentation</li>
+            </ul>
+
+            <div style="margin-top:12px;padding:12px 12px;background:#e3f2fd;border-radius:4px;text-align:center;">
+                <i class="fa-brands fa-github" style="margin-right:6px;color:#333;"></i>
+                <a href="https://github.com/NayeemJohnY/book-api-rest-assured-test-automation/actions" target="_blank" style="color:#1976d2;text-decoration:none;font-weight:500;">View Workflow Runs</a>
+                <span style="margin:0 8px;color:#666;">|</span>
+                <i class="fa-solid fa-rocket" style="margin-right:6px;color:#333;"></i>
+                <a href="https://github.com/NayeemJohnY/book-api-rest-assured-test-automation/actions/workflows/test-execution.yml" target="_blank" style="color:#1976d2;text-decoration:none;font-weight:500;">Manual Dispatch</a>
+            </div>
+        </div>
 
         <footer
             style="width:100%;text-align:center;margin-top:40px;padding:18px 0 8px 0;color:#b0b0b0;font-size:1em;letter-spacing:0.5px;border-top:1.5px solid rgba(79,195,247,0.18);box-shadow:0 -2px 12px 0 rgba(79,195,247,0.08);">
