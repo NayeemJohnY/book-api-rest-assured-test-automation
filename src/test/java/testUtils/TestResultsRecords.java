@@ -11,8 +11,6 @@ package testUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /** Java records */
 public class TestResultsRecords {
@@ -50,16 +48,12 @@ public class TestResultsRecords {
       Long newDuration = durationInMs + iterationResult.durationInMs();
 
       // Determine overall outcome
-      Set<String> outcomes =
-          iterationResults.stream().map(TestIterationResult::outcome).collect(Collectors.toSet());
+      String currentOutcome = outcome;
+      String newIterationOutcome = iterationResult.outcome();
 
-      String newOutcome = "Inconclusive";
-      if (outcomes.size() == 1) {
-        String only = outcomes.iterator().next();
-        if (only.equals("Passed") || only.equals("Failed") || only.equals("Error")) {
-          newOutcome = only;
-        }
-      }
+      // If current and new outcomes are different, set to Inconclusive
+      String newOutcome =
+          currentOutcome.equals(newIterationOutcome) ? currentOutcome : "Inconclusive";
 
       String newErrorMessage = errorMessage;
       if (!iterationResult.errorMessage().isEmpty()) {
