@@ -530,3 +530,101 @@ footer a:hover {
     font-size: 1em;
     cursor: pointer;
 }
+
+/* Azure DevOps Integration Banner */
+.azure-devops-banner {
+    width: 100%;
+    background: linear-gradient(135deg, #1a1f2e 0%, #0f1419 50%, #0a0d12 100%);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 24px 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.banner-text {
+    flex: 1;
+    min-width: 400px;
+    color: #fff;
+}
+
+.banner-text h3 {
+    font-size: 2em;
+    margin-bottom: 24px;
+    font-weight: 700;
+    color: #ffd700;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.benefits-list li {
+    font-size: 1.15em;
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 4px 0;
+}
+
+.benefits-list li strong {
+    color: #ffd700;
+    font-weight: 700;
+}
+
+.banner-image {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-image img {
+    max-width: 480px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.3s ease;
+}
+
+/* Responsive banner design */
+@media (max-width: 768px) {
+    .azure-devops-banner {
+        padding: 20px;
+    }
+
+    .banner-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+    }
+
+    .banner-text {
+        min-width: auto;
+    }
+
+    .banner-image {
+        min-width: auto;
+    }
+
+    .banner-image img {
+        max-width: 100%;
+    }
+}
