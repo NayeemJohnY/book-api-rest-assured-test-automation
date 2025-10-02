@@ -2,7 +2,7 @@ name: Test Execution and Publish Report
 
 on:
   schedule:
-  - cron: "0 2 * * 1-5"
+  - cron: "30 5 * * 1-5"
   
   workflow_dispatch:
     inputs:
@@ -38,6 +38,8 @@ permissions:
 
 env: 
   APP_MAX_REQUESTS: ${{inputs.APP_MAX_REQUESTS}}
+  PARALLEL: ${{ github.event_name == 'schedule' && 'true' || inputs.parallel }}
+  PUBLISH_REPORT: ${{ github.event_name == 'schedule' && 'true' || inputs.publish_report }}
 
 jobs:
   test-execution:
@@ -81,7 +83,7 @@ jobs:
         run: |
           EXTRA_PARAMS=""
 
-          if ${{ inputs.parallel }} ; then
+          if [ "$PARALLEL" = "true" ]; then
             EXTRA_PARAMS+=" -Dparallel=true";
           fi
 
@@ -115,7 +117,7 @@ jobs:
           retention-days: 3
 
       - name: Post Test Results to Azure DevOps
-        if: ${{ (success() || failure()) && inputs.publish_report }}
+        if: ${{ (success() || failure()) && env.PUBLISH_REPORT == 'true' }}
         uses: NayeemJohnY/actions/post-test-results-to-azure-devops@main
         with:
           test-results-json: test-results/test-results-report.json
@@ -124,11 +126,11 @@ jobs:
           azure-token: ${{ secrets.AZURE_TOKEN }}
 
       - name: Build Maven Javadocs
-        if: ${{ (success() || failure()) && inputs.publish_report }}
+        if: ${{ (success() || failure()) && env.PUBLISH_REPORT == 'true' }}
         run: mvn javadoc:javadoc javadoc:test-javadoc
 
       - name: Prepare GitHub Pages Content
-        if: ${{ (success() || failure()) && inputs.publish_report }}
+        if: ${{ (success() || failure()) && env.PUBLISH_REPORT == 'true' }}
         uses: NayeemJohnY/actions/prepare-github-pages@main
         with:
          allure-report-dir: test-results/allure-report
@@ -136,5 +138,5 @@ jobs:
          test-results-json: test-results/test-results-report.json
 
       - name: Deploy GitHub Pages
-        if: ${{ (success() || failure()) && inputs.publish_report }}
+        if: ${{ (success() || failure()) && env.PUBLISH_REPORT == 'true' }}
         uses: NayeemJohnY/actions/deploy-github-pages-site@main
