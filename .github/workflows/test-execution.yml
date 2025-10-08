@@ -1,8 +1,8 @@
 name: Test Execution and Publish Report
 
 on:
-  schedule:
-  - cron: "30 5 * * 1-5"
+  # schedule:
+  # - cron: "30 5 * * 1-5"
   
   workflow_dispatch:
     inputs:
