@@ -12,7 +12,7 @@
 		<testng.version>7.11.0</testng.version>
 		<restassured.version>5.5.5</restassured.version>
 		<jackson.version>2.19.2</jackson.version>
-		<log4j.version>2.25.1</log4j.version>
+		<log4j.version>2.25.3</log4j.version>
 		<allure.testng.version>2.29.1</allure.testng.version>
 		<allure.restassured.version>2.29.1</allure.restassured.version>
 		<surefire.version>3.5.3</surefire.version>
